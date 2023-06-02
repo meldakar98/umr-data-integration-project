@@ -9,6 +9,9 @@ public class Training {
     int kcal_stufe_drei;
     int kcal_stufe_vier;
     int kcal_per_kg;
+    public Training(String s)
+    {
 
+    }
 
 }
