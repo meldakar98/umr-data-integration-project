@@ -14,9 +14,11 @@ public class Laender {
         string=s;
     }
     String name;
-    char geschlecht;
-    int gewicht;
-    int groesse;
-
+    String  gewichtMan;
+    String groesseMan;
+    String BMIMan;
+    String gewichtFrau;
+    String groesseFrau;
+    String BMIManFrau;
 
 }
