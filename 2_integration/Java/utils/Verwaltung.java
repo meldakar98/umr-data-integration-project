@@ -1,6 +1,7 @@
 package utils;
 
 import Model.Laender;
+import Model.Training;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -22,6 +23,33 @@ public class Verwaltung {
             current=reader.readLine();
             while (current != null) {
                 dataholder.addElement(new Laender(current));
+
+                current = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        catch (IllegalArgumentException e)
+        {
+            e.printStackTrace();
+
+        }
+
+    }
+    public void parseExerciseCsvFile() {
+        String current = "";
+        String fileName="/home/zaza/Desktop/Work/Data Integration/umr-data-integration-project/0_datasets/exercise_dataset.csv";
+        Dataholder dataholder= Dataholder.getInstance();
+        try {
+
+            FileReader fileReader=new FileReader(fileName);
+            final BufferedReader reader = new BufferedReader(fileReader);
+            current = reader.readLine();
+            Training.setAttributes(current);
+            current=reader.readLine();
+            while (current != null) {
+                dataholder.addElement(new Training(current));
 
                 current = reader.readLine();
             }

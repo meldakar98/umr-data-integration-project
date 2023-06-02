@@ -1,21 +1,27 @@
 package utils;
 
 import Model.Laender;
+import Model.Training;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Dataholder {
     private static Dataholder instance=null;
-    List<Laender> laender =null;
+    List<Laender> laender ;
+    List<Training>  training;
     public void addElement(Laender l)
     {
         laender.add(l);
     }
+    public void addElement(Training l)
+    {
+        training.add(l);
+    }
     private Dataholder()
     {
         laender=new ArrayList<>();
-
+        training=new ArrayList<>();
     }
     public static Dataholder getInstance(){
         if(instance==null)
