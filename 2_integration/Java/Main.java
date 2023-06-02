@@ -1,5 +1,10 @@
-public class Main {
+import utils.Dataholder;
+import utils.Verwaltung;
+
+public class main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Verwaltung v=new Verwaltung();
+        v.parselaenderCsvFile();
+        System.out.println(Dataholder.getInstance().getLaender().size());
     }
 }
