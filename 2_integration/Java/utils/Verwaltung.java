@@ -21,8 +21,9 @@ public class Verwaltung {
             Laender.setAttributes(current);
             current=reader.readLine();
             while (current != null) {
-                current = reader.readLine();
                 dataholder.addElement(new Laender(current));
+
+                current = reader.readLine();
             }
             reader.close();
         } catch (IOException e) {
