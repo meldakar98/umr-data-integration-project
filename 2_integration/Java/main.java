@@ -8,6 +8,7 @@ public class main {
         System.out.println(Dataholder.getInstance().getLaender().size());
 
         System.out.println(Dataholder.getInstance().getTraining().size());
+        System.out.println(Dataholder.getInstance().getMcDonalds().size());
 
     }
 }
