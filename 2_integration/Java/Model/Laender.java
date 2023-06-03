@@ -3,7 +3,7 @@ package Model;
 import java.util.Arrays;
 import java.util.List;
 
-public class Laender implements Record{
+public class Laender  {
     static List<String> attributes;
     private String string="";
     public static void setAttributes(String s)
@@ -31,8 +31,4 @@ public class Laender implements Record{
     String groesseFrau;
     String BMIManFrau;
 
-    @Override
-    public String getCommaSeparatedString() {
-        return null;
-    }
 }

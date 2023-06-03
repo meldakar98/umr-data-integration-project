@@ -1,16 +1,17 @@
 package utils;
 
 import Model.Record;
+import Model.Training;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class KeyFinder {
-    public boolean isKey(List<String> candidate, List<Record> records)
+    public boolean isKey(List<String> candidate, List<Training> records)
     {
         Set<Set<String>> sets=new HashSet<>();
-        for (Record r: records
+        for (Training r: records
              ) {
             Set<String> set =new HashSet<>();
             for (String s: candidate
