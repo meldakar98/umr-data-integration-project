@@ -52,6 +52,6 @@ public class Training implements Record{
 
     @Override
     public String getCommaSeparatedString() {
-        return aktivitaet+","+kcal_stufe_eins+","+kcal_stufe_zwei+","+kcal_stufe_drei+","+kcal_stufe_vier+","+kcal_per_kg;
+        return "(" + aktivitaet+","+kcal_stufe_eins+","+kcal_stufe_zwei+","+kcal_stufe_drei+","+kcal_stufe_vier+","+kcal_per_kg + ")";
     }
 }

@@ -6,7 +6,9 @@ import utils.database_Info.Table;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DBManager implements DBWriter<Record> {
     private Connection conn;
@@ -46,42 +48,47 @@ public class DBManager implements DBWriter<Record> {
     }
 
     public static void main(String[] args) throws SQLException {
-        DBManager dbman = new DBManager();
-        dbman.setup(new Database_Settings("dataintegration","root","1234"));
-        ResultSet rs = dbman.executeQuery("SHOW KEYS FROM dataintegration.laender WHERE Key_name = 'PRIMARY'");
-        ResultSetMetaData metaData = rs.getMetaData();
-        System.out.println(metaData.getColumnCount());
-//        while (rs.next()){
-//            System.out.println("Name:" +  rs.getString(3));
-//        }
-
-            StringBuffer buf = new StringBuffer();
-            buf.append("[");
-            try {
-//                ResultSetMetaData metaData = rs.getMetaData();
-                int nColumns = metaData.getColumnCount();
-                rs.next();
-                for (int i = 1; i <= nColumns; ++i) {
-                    buf.append(metaData.getColumnName(i));
-                    buf.append(" = ");
-                    System.out.println(i);
-                    buf.append(rs.getString(i));
-                    if (i < nColumns)
-                        buf.append(" , ");
-                }
-            } catch (SQLException e) {
-                buf.append(e.getMessage());
-                e.printStackTrace();
-            }
-            buf.append("]");
-
-        System.out.println(buf.toString());
+//        DBManager dbman = new DBManager();
+//        dbman.setup(new Database_Settings("dataintegration","root","1234"));
+//        ResultSet rs = dbman.executeQuery("SHOW KEYS FROM dataintegration.laender WHERE Key_name = 'PRIMARY'");
+//        ResultSetMetaData metaData = rs.getMetaData();
+//        System.out.println(metaData.getColumnCount());
+////        while (rs.next()){
+////            System.out.println("Name:" +  rs.getString(3));
+////        }
+//
+//            StringBuffer buf = new StringBuffer();
+//            buf.append("[");
+//            try {
+////                ResultSetMetaData metaData = rs.getMetaData();
+//                int nColumns = metaData.getColumnCount();
+//                rs.next();
+//                for (int i = 1; i <= nColumns; ++i) {
+//                    buf.append(metaData.getColumnName(i));
+//                    buf.append(" = ");
+//                    System.out.println(i);
+//                    buf.append(rs.getString(i));
+//                    if (i < nColumns)
+//                        buf.append(" , ");
+//                }
+//            } catch (SQLException e) {
+//                buf.append(e.getMessage());
+//                e.printStackTrace();
+//            }
+//            buf.append("]");
+//
+//        System.out.println(buf.toString());
 
 
     }
 
     @Override
     public void write(Table<Record> table) {
+        String attributes = table.getAttributes().stream().collect(Collectors.joining(","));
+
+        String values = table.getRecords().stream().map(Record::getCommaSeparatedString).collect(Collectors.joining(","));
+
+        executeQuery("CREATE TABLE " + table.getName() + " ")
 
     }
 }
