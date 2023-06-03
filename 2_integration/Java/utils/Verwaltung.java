@@ -9,8 +9,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Verwaltung {
-
-    public void parselaenderCsvFile() {
+    public void init()
+    {
+        parseExerciseCsvFile();
+        parselaenderCsvFile();
+    }
+    private void parselaenderCsvFile() {
         String current = "";
         String fileName="/home/zaza/Desktop/Work/Data Integration/umr-data-integration-project/0_datasets/durchschnitsgewicht_Lander.csv";
         Dataholder dataholder= Dataholder.getInstance();
@@ -37,7 +41,7 @@ public class Verwaltung {
         }
 
     }
-    public void parseExerciseCsvFile() {
+    private void parseExerciseCsvFile() {
         String current = "";
         String fileName="/home/zaza/Desktop/Work/Data Integration/umr-data-integration-project/0_datasets/exercise_dataset.csv";
         Dataholder dataholder= Dataholder.getInstance();
