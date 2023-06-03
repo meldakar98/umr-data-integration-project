@@ -1,12 +1,13 @@
 package utils;
 
 import utils.database_Info.Database_Settings;
+import utils.database_Info.Table;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DBManager {
+public class DBManager implements DBWriter {
     private Connection conn;
 
     public void setup(Database_Settings custom_db_settings) {
@@ -78,4 +79,9 @@ public class DBManager {
 
     }
 
+    @Override
+    public void write(Table table) {
+        //TODO
+
+    }
 }
