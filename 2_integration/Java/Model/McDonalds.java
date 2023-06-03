@@ -3,7 +3,7 @@ package Model;
 import java.util.Arrays;
 import java.util.List;
 
-public class McDonalds {
+public class McDonalds implements Record{
     static List<String> attributes;
     private String string="";
 
@@ -30,4 +30,9 @@ public class McDonalds {
     String energie;
     String fett;
     String kh;
+
+    @Override
+    public String getCommaSeparatedString() {
+        return null;
+    }
 }

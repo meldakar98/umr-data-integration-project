@@ -15,6 +15,27 @@ public class Table<T> {
     }
 
     List<T> records;
+
+    public String getName() {
+        return name;
+    }
+
+    public List<String> getAttributes() {
+        return attributes;
+    }
+
+    public List<T> getRecords() {
+        return records;
+    }
+
+    public List<String> getKeys() {
+        return Keys;
+    }
+
+    public List<String> getForignKeys() {
+        return forignKeys;
+    }
+
     List<String> Keys;
     List<String> forignKeys;
 }
