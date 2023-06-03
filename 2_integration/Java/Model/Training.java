@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -53,5 +54,36 @@ public class Training implements Record{
     @Override
     public String getCommaSeparatedString() {
         return aktivitaet+","+kcal_stufe_eins+","+kcal_stufe_zwei+","+kcal_stufe_drei+","+kcal_stufe_vier+","+kcal_per_kg;
+    }
+
+    @Override
+    public List<String> getValues() {
+        List<String> values=new ArrayList<>();
+        values.add(aktivitaet);
+        values.add(kcal_stufe_eins);
+        values.add(kcal_stufe_zwei);
+        values.add(kcal_stufe_drei);
+        values.add(kcal_stufe_vier);
+        values.add(kcal_per_kg);
+
+        return values;
+    }
+
+    @Override
+    public String get(String s) {
+        int i=0;
+        boolean found=false;
+        for (String s1:attributes
+             ) {
+            if(s.equals(s1))
+            {
+                found= true;
+                break;
+            }
+            i++;
+
+        }
+
+        return getValues().get(i);
     }
 }
