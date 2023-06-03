@@ -88,7 +88,7 @@ public class DBManager implements DBWriter<Record> {
 
         String values = table.getRecords().stream().map(Record::getCommaSeparatedString).collect(Collectors.joining(","));
 
-        executeQuery("CREATE TABLE " + table.getName() + " ")
+        executeQuery("CREATE TABLE " + table.getName() + " ");
 
     }
 }
