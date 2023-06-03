@@ -45,7 +45,7 @@ public class Verwaltung {
     }
     private void parseExerciseCsvFile() {
         String current = "";
-        String fileName="/home/zaza/Desktop/Work/Data Integration/umr-data-integration-project/0_datasets/exercise_dataset.csv";
+        String fileName="/home/zaza/Desktop/Work/Data Integration/umr-data-integration-project/0_datasets/exercise_dataset1.csv";
         Dataholder dataholder= Dataholder.getInstance();
         try {
 

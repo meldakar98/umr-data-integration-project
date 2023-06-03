@@ -1,5 +1,6 @@
 package utils;
 
+import Model.Record;
 import utils.database_Info.Database_Settings;
 import utils.database_Info.Table;
 
@@ -7,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DBManager implements DBWriter {
+public class DBManager implements DBWriter<Record> {
     private Connection conn;
 
     public void setup(Database_Settings custom_db_settings) {
@@ -80,8 +81,7 @@ public class DBManager implements DBWriter {
     }
 
     @Override
-    public void write(Table table) {
-        //TODO
+    public void write(Table<Record> table) {
 
     }
 }

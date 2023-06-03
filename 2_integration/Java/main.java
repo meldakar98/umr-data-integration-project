@@ -1,3 +1,5 @@
+import Model.McDonalds;
+import Model.Training;
 import utils.Dataholder;
 import utils.Verwaltung;
 
@@ -7,8 +9,8 @@ public class main {
         v.init();
         System.out.println(Dataholder.getInstance().getLaender().size());
 
-        System.out.println(Dataholder.getInstance().getTraining().size());
-        System.out.println(Dataholder.getInstance().getMcDonalds().size());
+        System.out.println(Dataholder.getInstance().getTraining().get(2).getCommaSeparatedString());
+        System.out.println(Training.getAttributes());
 
     }
 }
