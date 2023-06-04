@@ -27,6 +27,10 @@ public class Table<T> {
     public List<T> getRecords() {
         return records;
     }
+    public int getSize()
+    {
+        return records.size();
+    }
 
     public List<String> getKeys() {
         return Keys;

@@ -20,6 +20,7 @@ public class KeyFinder {
             }
             sets.add(set);
         }
+        System.out.println();
         return sets.size()==records.size();
     }
 

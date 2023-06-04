@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Training implements Record{
+public class Training extends Record{
 
     String aktivitaet;
     String kcal_stufe_eins;
@@ -27,14 +27,15 @@ public class Training implements Record{
     */
     public Training(String s)
     {
+        super(attributes,Arrays.stream(s.split(";")).filter(s1 -> s1!="").toList());
 
         List<String> list= Arrays.stream(s.split(";")).filter(s1 -> s1!="").toList();
-        aktivitaet=list.get(0);
-        kcal_stufe_zwei=list.get(2);
-        kcal_stufe_eins=list.get(1);
-        kcal_stufe_drei=list.get(3);
-        kcal_stufe_vier=list.get(4);;
-        kcal_per_kg=list.get(5);
+        aktivitaet=get(attributes.get(0));
+        kcal_stufe_zwei=get(attributes.get(2));
+        kcal_stufe_eins=get(attributes.get(1));
+        kcal_stufe_drei=get(attributes.get(3));
+        kcal_stufe_vier=get(attributes.get(4));
+        kcal_per_kg=get(attributes.get(5));
     }
 
     public static List<String> getAttributes() {

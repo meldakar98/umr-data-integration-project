@@ -3,8 +3,8 @@ package Model;
 import java.util.Arrays;
 import java.util.List;
 
-public class Laender  implements Record{
-    static List<String> attributes;
+public class Laender  extends Record{
+    public static List<String> attributes;
     private String string="";
     public static void setAttributes(String s)
     {
@@ -13,14 +13,16 @@ public class Laender  implements Record{
     }
     public Laender(String s)
     {
+        super(attributes,Arrays.stream(s.split(",")).filter(s1 -> s1!="").toList());
         List<String> list= Arrays.stream(s.split(",")).filter(s1 -> s1!="").toList();
-        groesseMan=list.get(1);
-        gewichtMan=list.get(2);
-        BMIMan=list.get(3);
-        groesseFrau=list.get(4);
-        gewichtFrau=list.get(5);
-        BMIManFrau=list.get(6);
-        name=list.get(0);
+        name=get(attributes.get(0));
+        groesseMan=get(attributes.get(1));
+        gewichtMan=get(attributes.get(2));
+        BMIMan=get(attributes.get(3));
+        groesseFrau=get(attributes.get(4));
+        gewichtFrau=get(attributes.get(5));
+        BMIManFrau=get(attributes.get(6));
+
 
     }
     String name;
@@ -31,21 +33,4 @@ public class Laender  implements Record{
     String groesseFrau;
     String BMIManFrau;
 
-    @Override
-    public String getCommaSeparatedString() {
-        //TODO
-        return null;
-    }
-
-    @Override
-    public List<String> getValues() {
-        //TODO
-        return null;
-    }
-
-    @Override
-    public String get(String s) {
-        //TODO
-        return null;
-    }
 }

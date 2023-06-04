@@ -1,3 +1,4 @@
+import Model.Laender;
 import Model.McDonalds;
 import Model.Training;
 import utils.Dataholder;
@@ -13,12 +14,12 @@ public class main {
     public static void main(String[] args) {
 
         Verwaltung v=new Verwaltung();
-        v.init();
-        System.out.println(Dataholder.getInstance().getLaender().size());
+
+        System.out.println("jsjsjs"+Dataholder.getInstance().getLaender().size());
 
         System.out.println(Dataholder.getInstance().getTraining().get(2).getCommaSeparatedString());
         System.out.println(Training.getAttributes());
-
+        System.out.println("size of sets are " + Dataholder.getInstance().getTraining().size()+",,,"+Dataholder.getInstance().getLaender().size()+",,,,"+Dataholder.getInstance().getMcDonalds().size());
         Set<String> set=new HashSet<>();
         Set<String> set2=new HashSet<>();
         set.add("A");
@@ -33,8 +34,8 @@ public class main {
         System.out.println(sets);
         KeyFinder kf=new KeyFinder();
         List<String> list=new ArrayList<>();
-        list.add(Training.getAttributes().get(0));
-        System.out.println(kf.isKey(list,Dataholder.getInstance().getTraining()));
+        list.add(Laender.attributes.get(0));
+        System.out.println(kf.isKey(list,Dataholder.getInstance().getMcDonalds()));
 
     }
 }
