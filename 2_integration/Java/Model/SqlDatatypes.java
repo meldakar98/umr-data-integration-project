@@ -1,7 +1,9 @@
 package Model;
 
 public enum SqlDatatypes {
-    VARCHAR(false,"VARCHAR","(.)"),INT(true,"INTEGER","([0-9])"),DOUBLE(true,"DOUBLE","^[+-]?\\d+(?:[.,]\\d+)?$");
+    VARCHAR(false,"VARCHAR","(.)"),
+    INT(true,"INTEGER","([0-9])"),
+    DOUBLE(true,"DOUBLE","^[+-]?\\d+(?:[.,]\\d+)?$");
     public final boolean nummeric;
     public final String DatatypeString;
 

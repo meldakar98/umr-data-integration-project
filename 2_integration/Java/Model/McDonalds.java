@@ -1,12 +1,16 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static Model.SqlDatatypes.INT;
+import static Model.SqlDatatypes.VARCHAR;
 
 public class McDonalds extends Record{
     public static List<String> attributes;
     private String string="";
-
+    private final static List<SqlDatatypes> SQL_DATATYPES = new ArrayList<SqlDatatypes>(Arrays.asList(VARCHAR,INT,INT,INT,INT,INT,INT));
     public McDonalds(String s) {
 
         super(attributes,s);

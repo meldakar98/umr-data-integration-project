@@ -1,6 +1,7 @@
 package utils.database_Info;
 
 import Model.Record;
+import Model.SqlDatatypes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ public class Table<T> {
 
     List<String> Keys;
     List<Map<String,Table<? extends Record>>> forignKeys;
-
+    List<SqlDatatypes> sqlDatatypes;
     List<T> records;
     public Table(String name, List<String> attributes) {
         this.name = name;

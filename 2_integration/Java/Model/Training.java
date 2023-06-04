@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static Model.SqlDatatypes.INT;
+import static Model.SqlDatatypes.VARCHAR;
+
 public class Training extends Record{
 
     String aktivitaet;
@@ -11,7 +14,7 @@ public class Training extends Record{
     String kcal_stufe_zwei;
     String kcal_stufe_drei;
     String kcal_stufe_vier;
-
+    private final static List<SqlDatatypes> SQL_DATATYPES = new ArrayList<SqlDatatypes>(Arrays.asList(VARCHAR,INT,INT,INT,INT,INT,INT));
     public String getAktivitaet() {
         return aktivitaet;
     }

@@ -88,7 +88,9 @@ public class DBManager implements DBWriter<Record> {
 
         StringBuffer stringBuffer = new StringBuffer();
 
-        for
+        table.getRecords().stream().forEach(r -> {
+            r.getValues().
+        });
 
 
         String values = table.getRecords().stream().map(Record::getCommaSeparatedString).collect(Collectors.joining(","));
