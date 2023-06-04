@@ -35,8 +35,8 @@ public class main {
         System.out.println(sets);
         KeyFinder kf=new KeyFinder();
         List<String> list=new ArrayList<>();
-        list.add(Laender.attributes.get(0));
-        System.out.println(kf.isKey(list,Dataholder.getInstance().getMcDonalds()));
+        list.add(Training.attributes.get(0));
+        System.out.println(kf.isKey(list,Dataholder.getInstance().getTraining()));
 
     }
 }

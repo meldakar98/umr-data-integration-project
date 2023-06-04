@@ -2,16 +2,15 @@ package Model;
 
 import java.util.*;
 
-public abstract class Record {
-     List<String> attributes;
+public class Record {
+     public List<String> attributes;
      Map<String,String> values;
     public Record(List<String> attributes,String s)
     {
         this.attributes=attributes;
         this.values= new HashMap<String,String>();
         List<String> v= Arrays.stream(s.split(";")).filter(s1 -> s1!="").toList();
-//        System.out.println("values"+values);
-//        System.out.println("attributes"+ attributes);
+
         if(attributes.size()==v.size())
         {
             for (int i = 0; i < attributes.size(); i++) {

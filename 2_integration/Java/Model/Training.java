@@ -41,7 +41,7 @@ public class Training extends Record{
         return attributes;
     }
 
-    static List<String> attributes;
+    public static List<String> attributes;
     private String string="";
     public static void setAttributes(String s)
     {

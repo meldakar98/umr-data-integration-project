@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class McDonalds extends Record{
-    static List<String> attributes;
+    public static List<String> attributes;
     private String string="";
 
     public McDonalds(String s) {
