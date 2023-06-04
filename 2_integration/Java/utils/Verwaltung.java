@@ -33,12 +33,17 @@ public class Verwaltung {
             FileReader fileReader=new FileReader(fileName);
             final BufferedReader reader = new BufferedReader(fileReader);
             current = reader.readLine();
+            int c=Arrays.stream(current.split(";")).filter(s1 -> s1!="").toList().size();
             table=new Table<>("Laender", Arrays.stream(current.split(";")).filter(s1 -> s1!="").toList());
             Laender.setAttributes(current);
             current=reader.readLine();
             while (current != null) {
-                dataholder.addElement(new Laender(current));
-                table.addRecord(new Laender(current));
+                if (Arrays.stream(current.split(";")).filter(s1 -> s1!="").toList().size()==c)
+                {
+
+                    dataholder.addElement(new Laender(current));
+                    table.addRecord(new Laender(current));
+                }
                 current = reader.readLine();
             }
             Dataholder.getInstance().addTable(table);
@@ -63,14 +68,18 @@ public class Verwaltung {
             FileReader fileReader=new FileReader(fileName);
             final BufferedReader reader = new BufferedReader(fileReader);
             current = reader.readLine();
+            int c=Arrays.stream(current.split(";")).filter(s1 -> s1!="").toList().size();
+
             table=new Table<>("Excercise", Arrays.stream(current.split(";")).filter(s1 -> s1!="").toList());
 
             Training.setAttributes(current);
             current=reader.readLine();
             while (current != null) {
-                dataholder.addElement(new Training(current));
-                table.addRecord(new Training(current));
+                if (Arrays.stream(current.split(";")).filter(s1 -> s1!="").toList().size()==c) {
 
+                    dataholder.addElement(new Training(current));
+                    table.addRecord(new Training(current));
+                }
                 current = reader.readLine();
             }
 
@@ -99,14 +108,17 @@ public class Verwaltung {
             final BufferedReader reader = new BufferedReader(fileReader);
             current = reader.readLine();
             table=new Table<>("Mcdonalds", Arrays.stream(current.split(";")).filter(s1 -> s1!="").toList());
+            int c=Arrays.stream(current.split(";")).filter(s1 -> s1!="").toList().size();
 
             McDonalds.setAttributes(current);
 
             current=reader.readLine();
             while (current != null) {
-                dataholder.addElement(new McDonalds(current));
-                table.addRecord(new McDonalds(current));
+                if (Arrays.stream(current.split(";")).filter(s1 -> s1!="").toList().size()==c) {
 
+                    dataholder.addElement(new McDonalds(current));
+                    table.addRecord(new McDonalds(current));
+                }
                 current = reader.readLine();
             }
             dataholder.addTable(table);
