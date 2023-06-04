@@ -18,7 +18,7 @@ public class Verwaltung {
     }
     private void parselaenderCsvFile() {
         String current = "";
-        String fileName="/home/zaza/Desktop/Work/Data Integration/umr-data-integration-project/0_datasets/durchschnitsgewicht_Lander.csv";
+        String fileName="/home/zaza/Desktop/Work/umr-data-integration-project/0_datasets/durchschnitsgewicht_Lander.csv";
         Dataholder dataholder= Dataholder.getInstance();
         try {
 
@@ -45,7 +45,7 @@ public class Verwaltung {
     }
     private void parseExerciseCsvFile() {
         String current = "";
-        String fileName="/home/zaza/Desktop/Work/Data Integration/umr-data-integration-project/0_datasets/exercise_dataset1.csv";
+        String fileName="/home/zaza/Desktop/Work/umr-data-integration-project/0_datasets/exercise_dataset1.csv";
         Dataholder dataholder= Dataholder.getInstance();
         try {
 
@@ -72,7 +72,7 @@ public class Verwaltung {
     }
     private void parseMcdonaldsCsvFile() {
         String current = "";
-        String fileName="/home/zaza/Desktop/Work/Data Integration/umr-data-integration-project/0_datasets/McDonalds_Nahrwertetabelle_fur_alle_Gerichte.csv";
+        String fileName="/home/zaza/Desktop/Work/umr-data-integration-project/0_datasets/McDonalds_Nahrwertetabelle_fur_alle_Gerichte.csv";
         Dataholder dataholder= Dataholder.getInstance();
         try {
 
