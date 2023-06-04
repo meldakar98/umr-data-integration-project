@@ -1,20 +1,30 @@
 package utils.database_Info;
 
+import Model.Record;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Table<T> {
     String name;
     List<String> attributes;
 
-    public Table(String name, List<String> attributes, List<T> records, List<String> keys, List<String> forignKeys) {
-        this.name = name;
-        this.attributes = attributes;
-        this.records = records;
-        Keys = keys;
-        this.forignKeys = forignKeys;
-    }
+    List<String> Keys;
+    List<Map<String,Table<? extends Record>>> forignKeys;
 
     List<T> records;
+    public Table(String name, List<String> attributes) {
+        this.name = name;
+        this.attributes = attributes;
+        this.records = new ArrayList<>();
+
+    }
+    public void addRecord(T r)
+    {
+        records.add(r);
+    }
+
 
     public String getName() {
         return name;
@@ -36,10 +46,8 @@ public class Table<T> {
         return Keys;
     }
 
-    public List<String> getForignKeys() {
+    public List<Map<String, Table<? extends Record>>> getForignKeys() {
         return forignKeys;
     }
 
-    List<String> Keys;
-    List<String> forignKeys;
 }
