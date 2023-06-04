@@ -45,6 +45,9 @@ public class main {
 //        System.out.println(Dataholder.getInstance().tables.get(2).getAttributes());
 //        System.out.println(Dataholder.getInstance().tables.get(2).getRecords());
 //        System.out.println(kf.isKey(list,Dataholder.getInstance().getTraining()));
+//        System.out.println("sddsjdsjjd"+Dataholder.getInstance().tables.get(0).findKeys());
+  //      System.out.println("sddsjdsjjd"+Dataholder.getInstance().tables.get(1).findKeys());
+        System.out.println("sddsjdsjjd"+Dataholder.getInstance().tables.get(2).findKeys());
 
     }
 }

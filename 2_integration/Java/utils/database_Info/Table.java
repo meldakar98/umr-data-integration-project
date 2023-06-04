@@ -23,19 +23,38 @@ public class Table<T extends Record> {
     {
         records.add(r);
     }
-    public boolean checkIntegrety()
+    public void checkKeyIntegrety()
     {
         if(keys!=null)
         {
-            return isKey(keys);
+             if (!isKey(keys));
+            {
+                keys=findKeys();
+            }
         }
         else {
-            return false;
+             keys=findKeys();
         }
     }
-    private List<String> getCandidates()
+
+    public List<String> findKeys() {
+        List<List<String>> candidates=getCandidates();
+        System.out.println(candidates);
+        for (List<String> c: candidates)
+        {
+            if(isKey(c))
+                return c;
+        }
+        return null;
+    }
+
+    public List<List<String>> getCandidates()
     {
-        List<String> res=new ArrayList<>();
+
+        List<List<String>> res=new ArrayList<>();
+        res=generateCombinations(attributes);
+        //res=res.stream().filter(l->!l.isEmpty()&&l.contains(attributes.get(0))).toList();
+
 
         return res;
 
@@ -53,8 +72,6 @@ public class Table<T extends Record> {
             }
             sets.add(set);
         }
-        System.out.println();
-        System.out.println(sets);
         return sets.size()==records.size();
     }
 
@@ -83,13 +100,13 @@ public class Table<T extends Record> {
         return forignKeys;
     }
 
-    public static List<List<String>> generateCombinations(List<String> arr) {
+    public  List<List<String>> generateCombinations(List<String> arr) {
         List<List<String>> combinations = new ArrayList<>();
         generateCombinationsHelper(arr, 0, new ArrayList<>(), combinations);
         return combinations;
     }
 
-    private static void generateCombinationsHelper(List<String> arr, int index, List<String> currentCombination, List<List<String>> combinations) {
+    private  void generateCombinationsHelper(List<String> arr, int index, List<String> currentCombination, List<List<String>> combinations) {
         combinations.add(new ArrayList<>(currentCombination));
 
         for (int i = index; i < arr.size(); i++) {
