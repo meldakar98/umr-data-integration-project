@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Verwaltung {
@@ -25,21 +26,23 @@ public class Verwaltung {
     private void parselaenderCsvFile() {
         String current = "";
         String fileName="./0_datasets/durchschnitsgewicht_Lander.csv";
+        Table<Laender> table;
         Dataholder dataholder= Dataholder.getInstance();
         try {
 
             FileReader fileReader=new FileReader(fileName);
             final BufferedReader reader = new BufferedReader(fileReader);
             current = reader.readLine();
-
+            table=new Table<>("Laender", Arrays.stream(current.split(";")).filter(s1 -> s1!="").toList());
             Laender.setAttributes(current);
             System.out.println("Attributes of Land"+Laender.attributes);
             current=reader.readLine();
             while (current != null) {
                 dataholder.addElement(new Laender(current));
-
+                table.addRecord(new Laender(current));
                 current = reader.readLine();
             }
+            Dataholder.getInstance().addTable(table);
             reader.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -55,18 +58,25 @@ public class Verwaltung {
         String current = "";
         String fileName="./0_datasets/exercise_dataset1.csv";
         Dataholder dataholder= Dataholder.getInstance();
+        Table<Training> table;
         try {
 
             FileReader fileReader=new FileReader(fileName);
             final BufferedReader reader = new BufferedReader(fileReader);
             current = reader.readLine();
+            table=new Table<>("Excercise", Arrays.stream(current.split(";")).filter(s1 -> s1!="").toList());
+
             Training.setAttributes(current);
             current=reader.readLine();
             while (current != null) {
                 dataholder.addElement(new Training(current));
+                table.addRecord(new Training(current));
 
                 current = reader.readLine();
             }
+
+            Dataholder.getInstance().addTable(table);
+
             reader.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -82,18 +92,25 @@ public class Verwaltung {
         String current = "";
         String fileName="./0_datasets/McDonalds_Nahrwertetabelle_fur_alle_Gerichte.csv";
         Dataholder dataholder= Dataholder.getInstance();
+        Table<McDonalds> table;
+
         try {
 
             FileReader fileReader=new FileReader(fileName);
             final BufferedReader reader = new BufferedReader(fileReader);
             current = reader.readLine();
+            table=new Table<>("Mcdonalds", Arrays.stream(current.split(";")).filter(s1 -> s1!="").toList());
+
             McDonalds.setAttributes(current);
+
             current=reader.readLine();
             while (current != null) {
                 dataholder.addElement(new McDonalds(current));
+                table.addRecord(new McDonalds(current));
 
                 current = reader.readLine();
             }
+            dataholder.addTable(table);
             reader.close();
         } catch (IOException e) {
             throw new RuntimeException(e);

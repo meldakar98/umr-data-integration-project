@@ -35,7 +35,13 @@ public class main {
         System.out.println(sets);
         KeyFinder kf=new KeyFinder();
         List<String> list=new ArrayList<>();
-        list.add(Training.attributes.get(0));
+        System.out.println("jasjasjjsa"+Dataholder.getInstance().getTraining());
+        System.out.println(Dataholder.getInstance().tables.get(0).getAttributes());
+        System.out.println(Dataholder.getInstance().tables.get(0).getRecords());
+        System.out.println(Dataholder.getInstance().tables.get(1).getAttributes());
+        System.out.println(Dataholder.getInstance().tables.get(1).getRecords());
+        System.out.println(Dataholder.getInstance().tables.get(2).getAttributes());
+        System.out.println(Dataholder.getInstance().tables.get(2).getRecords());
         System.out.println(kf.isKey(list,Dataholder.getInstance().getTraining()));
 
     }

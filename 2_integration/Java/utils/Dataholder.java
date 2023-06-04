@@ -2,12 +2,15 @@ package utils;
 
 import Model.Laender;
 import Model.McDonalds;
+import Model.Record;
 import Model.Training;
+import utils.database_Info.Table;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Dataholder {
+    public List<Table<? extends Record>> tables;
     private static Dataholder instance=null;
     List<Laender> laender ;
 
@@ -39,6 +42,12 @@ public class Dataholder {
         laender=new ArrayList<>();
         training=new ArrayList<>();
         mcDonalds=new ArrayList<>();
+        tables=new ArrayList<>();
+
+    }
+    public void addTable(Table<? extends Record> t)
+    {
+        tables.add(t);
     }
     public static Dataholder getInstance(){
         if(instance==null)
