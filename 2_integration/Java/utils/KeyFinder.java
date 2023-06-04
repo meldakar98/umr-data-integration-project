@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Set;
 
 public class KeyFinder {
-    public boolean isKey(List<String> candidate, List<Training> records)
+    public boolean isKey(List<String> candidate, List<? extends Record> records)
     {
         Set<Set<String>> sets=new HashSet<>();
-        for (Training r: records
+        for (Record r: records
              ) {
             Set<String> set =new HashSet<>();
             for (String s: candidate
