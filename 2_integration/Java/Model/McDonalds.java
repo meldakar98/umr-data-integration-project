@@ -9,9 +9,7 @@ public class McDonalds extends Record{
 
     public McDonalds(String s) {
 
-        super(attributes,Arrays.stream(s.split(",")).filter(s1 -> s1!="").toList());
-
-        List<String> list= Arrays.stream(s.split(",")).filter(s1 -> s1!="").toList();
+        super(attributes,s);
 
         menu=get(attributes.get(0));
         menge=get(attributes.get(1));
@@ -24,7 +22,7 @@ public class McDonalds extends Record{
 
     public static void setAttributes(String s)
     {
-        attributes= Arrays.stream(s.split(",")).filter(s1 -> s1!="").toList();
+        attributes= Arrays.stream(s.split(";")).filter(s1 -> s1!="").toList();
         System.out.println(attributes.size());
     }
     String menu;

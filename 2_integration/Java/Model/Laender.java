@@ -8,13 +8,12 @@ public class Laender  extends Record{
     private String string="";
     public static void setAttributes(String s)
     {
-        attributes= Arrays.stream(s.split(",")).filter(s1 -> s1!="").toList();
+        attributes= Arrays.stream(s.split(";")).filter(s1 -> s1!="").toList();
         System.out.println(attributes.size());
     }
     public Laender(String s)
     {
-        super(attributes,Arrays.stream(s.split(",")).filter(s1 -> s1!="").toList());
-        List<String> list= Arrays.stream(s.split(",")).filter(s1 -> s1!="").toList();
+        super(attributes,s);
         name=get(attributes.get(0));
         groesseMan=get(attributes.get(1));
         gewichtMan=get(attributes.get(2));

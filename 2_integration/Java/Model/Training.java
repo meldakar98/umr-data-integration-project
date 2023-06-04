@@ -27,9 +27,8 @@ public class Training extends Record{
     */
     public Training(String s)
     {
-        super(attributes,Arrays.stream(s.split(";")).filter(s1 -> s1!="").toList());
+        super(attributes,s);
 
-        List<String> list= Arrays.stream(s.split(";")).filter(s1 -> s1!="").toList();
         aktivitaet=get(attributes.get(0));
         kcal_stufe_zwei=get(attributes.get(2));
         kcal_stufe_eins=get(attributes.get(1));
