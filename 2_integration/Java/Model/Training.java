@@ -2,10 +2,10 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-import static Model.SqlDatatypes.INT;
-import static Model.SqlDatatypes.VARCHAR;
+import static Model.SqlDatatypes.*;
 
 public class Training extends Record{
 
@@ -14,7 +14,8 @@ public class Training extends Record{
     String kcal_stufe_zwei;
     String kcal_stufe_drei;
     String kcal_stufe_vier;
-    private final static List<SqlDatatypes> SQL_DATATYPES = new ArrayList<SqlDatatypes>(Arrays.asList(VARCHAR,INT,INT,INT,INT,INT,INT));
+
+    List<SqlDatatypes> sqlDatatypes = new ArrayList<SqlDatatypes>(Arrays.asList(VARCHAR,INT,INT,INT,INT,DOUBLE));
     public String getAktivitaet() {
         return aktivitaet;
     }
@@ -40,19 +41,6 @@ public class Training extends Record{
     }
 
     String kcal_per_kg;
-    /*
-    public Training(String s)
-    {
-
-        List<String> list= Arrays.stream(s.split(",")).filter(s1 -> s1!="").toList();
-        aktivitaet=list.get(0);
-        kcal_stufe_zwei=Integer.parseInt(list.get(2));
-        kcal_stufe_eins=Integer.parseInt(list.get(1));
-        kcal_stufe_drei=Integer.parseInt(list.get(3));
-        kcal_stufe_vier=Integer.parseInt(list.get(4));;
-        kcal_per_kg=Double.parseDouble(list.get(5));
-    }
-    */
     public Training(String s)
     {
         super(attributes,s);
@@ -80,4 +68,8 @@ public class Training extends Record{
     }
 
 
+    @Override
+    public List<SqlDatatypes> getSqlDatatypes() {
+        return this.sqlDatatypes;
+    }
 }

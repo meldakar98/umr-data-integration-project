@@ -2,9 +2,11 @@ package Model;
 
 import java.util.*;
 
-public class Record {
+public abstract class Record {
+
      public List<String> attributes;
      Map<String,String> values;
+
     public Record(List<String> attributes,String s)
     {
         this.attributes=attributes;
@@ -19,6 +21,7 @@ public class Record {
         }
 
     }
+
     @Override
     public String toString()
     {
@@ -45,4 +48,6 @@ public class Record {
 
         return values.get(s);
     }
+
+    public abstract List<SqlDatatypes> getSqlDatatypes();
 }

@@ -11,7 +11,7 @@ import static Model.SqlDatatypes.VARCHAR;
 public class Laender  extends Record{
     public static List<String> attributes;
     private String string="";
-    private final static List<SqlDatatypes> SQL_DATATYPES = new ArrayList<SqlDatatypes>(Arrays.asList(VARCHAR,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE));
+    private List<SqlDatatypes> sqlDatatypes = new ArrayList<SqlDatatypes>(Arrays.asList(VARCHAR,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE));
     public static void setAttributes(String s)
     {
         attributes= Arrays.stream(s.split(";")).filter(s1 -> s1!="").toList();
@@ -38,4 +38,8 @@ public class Laender  extends Record{
     String groesseFrau;
     String BMIManFrau;
 
+    @Override
+    public List<SqlDatatypes> getSqlDatatypes() {
+        return this.sqlDatatypes;
+    }
 }

@@ -10,7 +10,7 @@ import static Model.SqlDatatypes.VARCHAR;
 public class McDonalds extends Record{
     public static List<String> attributes;
     private String string="";
-    private final static List<SqlDatatypes> SQL_DATATYPES = new ArrayList<SqlDatatypes>(Arrays.asList(VARCHAR,INT,INT,INT,INT,INT,INT));
+    private List<SqlDatatypes> sqlDatatypes = new ArrayList<SqlDatatypes>(Arrays.asList(VARCHAR,VARCHAR,INT,INT,INT,INT,INT));
     public McDonalds(String s) {
 
         super(attributes,s);
@@ -37,4 +37,8 @@ public class McDonalds extends Record{
     String fett;
     String kh;
 
+    @Override
+    public List<SqlDatatypes> getSqlDatatypes() {
+        return this.sqlDatatypes;
+    }
 }

@@ -1,6 +1,7 @@
 package utils;
 
 import Model.Record;
+import Model.SqlDatatypes;
 import utils.database_Info.Database_Settings;
 import utils.database_Info.Table;
 
@@ -78,7 +79,7 @@ public class DBManager implements DBWriter<Record> {
 //            buf.append("]");
 //
 //        System.out.println(buf.toString());
-
+        SqlDatatypes.getSize(Arrays.asList("12.44555532","342125.1"),SqlDatatypes.DOUBLE);
 
     }
 
@@ -87,15 +88,14 @@ public class DBManager implements DBWriter<Record> {
         String attributes = table.getAttributes().stream().collect(Collectors.joining(","));
 
         StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("CREATE TABLE " + table.getName());
 
-        table.getRecords().stream().forEach(r -> {
-            r.getValues().
-        });
-
+        for(int i = 0; i < table.getAttributes().size();i++){
+//            for (int ii = 0; i<table)
+        }
 
         String values = table.getRecords().stream().map(Record::getCommaSeparatedString).collect(Collectors.joining(","));
 
-        executeQuery("CREATE TABLE " + table.getName() + " ");
 
     }
 }
