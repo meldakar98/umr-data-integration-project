@@ -11,6 +11,31 @@ public class Training extends Record{
     String kcal_stufe_zwei;
     String kcal_stufe_drei;
     String kcal_stufe_vier;
+
+    public String getAktivitaet() {
+        return aktivitaet;
+    }
+
+    public String getKcal_stufe_eins() {
+        return kcal_stufe_eins;
+    }
+
+    public String getKcal_stufe_zwei() {
+        return kcal_stufe_zwei;
+    }
+
+    public String getKcal_stufe_drei() {
+        return kcal_stufe_drei;
+    }
+
+    public String getKcal_stufe_vier() {
+        return kcal_stufe_vier;
+    }
+
+    public String getKcal_per_kg() {
+        return kcal_per_kg;
+    }
+
     String kcal_per_kg;
     /*
     public Training(String s)
@@ -46,44 +71,10 @@ public class Training extends Record{
     public static void setAttributes(String s)
     {
         attributes= Arrays.stream(s.split(";")).filter(s1 -> s1!="").toList();
-        System.out.println(attributes.size());
+
 
 
     }
 
-    @Override
-    public String getCommaSeparatedString() {
-        return "(" + aktivitaet+","+kcal_stufe_eins+","+kcal_stufe_zwei+","+kcal_stufe_drei+","+kcal_stufe_vier+","+kcal_per_kg + ")";
-    }
 
-    @Override
-    public List<String> getValues() {
-        List<String> values=new ArrayList<>();
-        values.add(aktivitaet);
-        values.add(kcal_stufe_eins);
-        values.add(kcal_stufe_zwei);
-        values.add(kcal_stufe_drei);
-        values.add(kcal_stufe_vier);
-        values.add(kcal_per_kg);
-
-        return values;
-    }
-
-    @Override
-    public String get(String s) {
-        int i=0;
-        boolean found=false;
-        for (String s1:attributes
-             ) {
-            if(s.equals(s1))
-            {
-                found= true;
-                break;
-            }
-            i++;
-
-        }
-
-        return getValues().get(i);
-    }
 }

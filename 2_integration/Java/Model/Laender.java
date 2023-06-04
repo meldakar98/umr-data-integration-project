@@ -9,7 +9,7 @@ public class Laender  extends Record{
     public static void setAttributes(String s)
     {
         attributes= Arrays.stream(s.split(";")).filter(s1 -> s1!="").toList();
-        System.out.println(attributes.size());
+
     }
     public Laender(String s)
     {

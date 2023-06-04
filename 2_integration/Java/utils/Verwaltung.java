@@ -35,7 +35,6 @@ public class Verwaltung {
             current = reader.readLine();
             table=new Table<>("Laender", Arrays.stream(current.split(";")).filter(s1 -> s1!="").toList());
             Laender.setAttributes(current);
-            System.out.println("Attributes of Land"+Laender.attributes);
             current=reader.readLine();
             while (current != null) {
                 dataholder.addElement(new Laender(current));
