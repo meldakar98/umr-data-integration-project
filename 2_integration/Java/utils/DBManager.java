@@ -91,7 +91,7 @@ public class DBManager implements DBWriter<Record> {
 
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("CREATE TABLE " + table.getName() + "(");
-        List<Record> records = table.getRecords();
+        List<? extends Record> records = table.getRecords();
 
         for (String atr : table.getAttributes()){
             stringBuffer.append("`" + atr + "` ");
@@ -116,6 +116,7 @@ public class DBManager implements DBWriter<Record> {
         table.getForignKeys();
         stringBuffer.delete(stringBuffer.length()-1,stringBuffer.length());
         stringBuffer.append(")");
+
 
 
     }
