@@ -5,6 +5,25 @@ import java.util.*;
 public class Record {
      public List<String> attributes;
      Map<String,String> values;
+     @Override
+     public boolean equals(Object o)
+     {
+        Record o2=(Record) o;
+        if(this.getValues().size()!=o2.getValues().size())
+        {
+            System.out.println("not equal");
+            return false;
+        }
+         for (int i = 0; i <this.getValues().size() ; i++) {
+             if(!this.getValues().get(i).equals(this.getValues().get(i)))
+                 return false;
+         }
+        return true;
+     }
+    @Override
+    public int hashCode() {
+        return  getValues().get(0).hashCode() + getValues().get(1).hashCode()+ getValues().get(2).hashCode();
+    }
     public Record(List<String> attributes,String s)
     {
         this.attributes=attributes;

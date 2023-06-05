@@ -46,6 +46,9 @@ public class Verwaltung {
                 }
                 current = reader.readLine();
             }
+
+            table.findAndRemoveDuplicateLists();
+            table.checkKeyIntegrety();
             Dataholder.getInstance().addTable(table);
             reader.close();
         } catch (IOException e) {
@@ -82,7 +85,8 @@ public class Verwaltung {
                 }
                 current = reader.readLine();
             }
-
+            table.findAndRemoveDuplicateLists();
+            table.checkKeyIntegrety();
             Dataholder.getInstance().addTable(table);
 
             reader.close();
@@ -121,6 +125,9 @@ public class Verwaltung {
                 }
                 current = reader.readLine();
             }
+
+            table.findAndRemoveDuplicateLists();
+            table.checkKeyIntegrety();
             dataholder.addTable(table);
             reader.close();
         } catch (IOException e) {

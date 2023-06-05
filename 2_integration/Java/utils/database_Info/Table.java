@@ -116,5 +116,21 @@ public class Table<T extends Record> {
         }
     }
 
+    public  List<Record> findAndRemoveDuplicateLists() {
+        List<Record> lists=new ArrayList<>();
+
+        List<Record> duplicateLists = new ArrayList<>();
+        Set<Record> uniqueLists = new HashSet<>();
+
+        for (Record list : records) {
+            if (!uniqueLists.add(list)) {
+                duplicateLists.add(list);
+            }
+        }
+        records= (List<T>) uniqueLists.stream().toList();
+
+        return duplicateLists;
+    }
+
 
 }
