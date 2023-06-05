@@ -17,7 +17,7 @@ public class main {
 //
 //        System.out.println(Dataholder.getInstance().getLaender().get(5).getCommaSeparatedString());
 //        System.out.println(Training.getAttributes());
-   //    System.out.println("size of sets are " + Dataholder.getInstance().getTraining().size()+",,,"+Dataholder.getInstance().getLaender().size()+",,,,"+Dataholder.getInstance().getMcDonalds().size());
+//        System.out.println("size of sets are " + Dataholder.getInstance().getTraining().size()+",,,"+Dataholder.getInstance().getLaender().size()+",,,,"+Dataholder.getInstance().getMcDonalds().size());
 //        System.out.println(Dataholder.getInstance().getMcDonalds());
 //        Set<String> set=new HashSet<>();
 //        Set<String> set2=new HashSet<>();
