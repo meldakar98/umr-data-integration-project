@@ -86,7 +86,7 @@ public class DBManager implements DBWriter<Record> {
     }
 
     @Override
-    public void write(Table<Record> table) {
+    public void write(Table<? extends Record> table) {
         String attributes = table.getAttributes().stream().collect(Collectors.joining(","));
 
         StringBuffer stringBuffer = new StringBuffer();
