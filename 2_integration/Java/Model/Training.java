@@ -4,13 +4,38 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Training implements Record{
+public class Training extends Record{
 
     String aktivitaet;
     String kcal_stufe_eins;
     String kcal_stufe_zwei;
     String kcal_stufe_drei;
     String kcal_stufe_vier;
+
+    public String getAktivitaet() {
+        return aktivitaet;
+    }
+
+    public String getKcal_stufe_eins() {
+        return kcal_stufe_eins;
+    }
+
+    public String getKcal_stufe_zwei() {
+        return kcal_stufe_zwei;
+    }
+
+    public String getKcal_stufe_drei() {
+        return kcal_stufe_drei;
+    }
+
+    public String getKcal_stufe_vier() {
+        return kcal_stufe_vier;
+    }
+
+    public String getKcal_per_kg() {
+        return kcal_per_kg;
+    }
+
     String kcal_per_kg;
     /*
     public Training(String s)
@@ -27,63 +52,29 @@ public class Training implements Record{
     */
     public Training(String s)
     {
+        super(attributes,s);
 
-        List<String> list= Arrays.stream(s.split(";")).filter(s1 -> s1!="").toList();
-        aktivitaet=list.get(0);
-        kcal_stufe_zwei=list.get(2);
-        kcal_stufe_eins=list.get(1);
-        kcal_stufe_drei=list.get(3);
-        kcal_stufe_vier=list.get(4);;
-        kcal_per_kg=list.get(5);
+        aktivitaet=get(attributes.get(0));
+        kcal_stufe_zwei=get(attributes.get(2));
+        kcal_stufe_eins=get(attributes.get(1));
+        kcal_stufe_drei=get(attributes.get(3));
+        kcal_stufe_vier=get(attributes.get(4));
+        kcal_per_kg=get(attributes.get(5));
     }
 
     public static List<String> getAttributes() {
         return attributes;
     }
 
-    static List<String> attributes;
+    public static List<String> attributes;
     private String string="";
     public static void setAttributes(String s)
     {
         attributes= Arrays.stream(s.split(";")).filter(s1 -> s1!="").toList();
-        System.out.println(attributes.size());
+
 
 
     }
 
-    @Override
-    public String getCommaSeparatedString() {
-        return "(" + aktivitaet+","+kcal_stufe_eins+","+kcal_stufe_zwei+","+kcal_stufe_drei+","+kcal_stufe_vier+","+kcal_per_kg + ")";
-    }
 
-    @Override
-    public List<String> getValues() {
-        List<String> values=new ArrayList<>();
-        values.add(aktivitaet);
-        values.add(kcal_stufe_eins);
-        values.add(kcal_stufe_zwei);
-        values.add(kcal_stufe_drei);
-        values.add(kcal_stufe_vier);
-        values.add(kcal_per_kg);
-
-        return values;
-    }
-
-    @Override
-    public String get(String s) {
-        int i=0;
-        boolean found=false;
-        for (String s1:attributes
-             ) {
-            if(s.equals(s1))
-            {
-                found= true;
-                break;
-            }
-            i++;
-
-        }
-
-        return getValues().get(i);
-    }
 }

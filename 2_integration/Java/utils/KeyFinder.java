@@ -18,8 +18,12 @@ public class KeyFinder {
                  ) {
                 set.add(r.get(s));
             }
+            System.out.println(set);
             sets.add(set);
         }
+        System.out.println("sksdd");
+        System.out.println(sets.size());
+        System.out.println(records.size());
         return sets.size()==records.size();
     }
 
