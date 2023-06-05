@@ -1,14 +1,12 @@
-import Model.Laender;
-import Model.McDonalds;
-import Model.Training;
+import Model.Record;
+import utils.DBManager;
 import utils.Dataholder;
 import utils.KeyFinder;
 import utils.Verwaltung;
+import utils.database_Info.Table;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class main {
     public static void main(String[] args) {
@@ -62,6 +60,13 @@ public class main {
         System.out.println("sddsjdsjjd"+Dataholder.getInstance().tables.get(2).getKeys());
         System.out.println("sddsjdsjjd"+Dataholder.getInstance().tables.get(1).getKeys());
         System.out.println("sddsjdsjjd"+Dataholder.getInstance().tables.get(0).getKeys());
+
+        //writer (init SQL Tables)
+        for (Table<? extends Record> t: Dataholder.getInstance().tables){
+            new DBManager().initWrite(t,"dataintegration");
+
+
+        }
 
     }
 }

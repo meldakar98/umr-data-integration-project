@@ -6,7 +6,6 @@ import utils.database_Info.Database_Settings;
 import utils.database_Info.Table;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -86,11 +85,11 @@ public class DBManager implements DBWriter<Record> {
     }
 
     @Override
-    public void write(Table<? extends Record> table) {
+    public void initWrite(Table<? extends Record> table, String databaseToWirteTo) {
         String attributes = table.getAttributes().stream().collect(Collectors.joining(","));
 
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("CREATE TABLE " + table.getName() + "(");
+        stringBuffer.append("CREATE TABLE " + databaseToWirteTo + "." + table.getName() + "(");
         List<? extends Record> records = table.getRecords();
 
         for (String atr : table.getAttributes()){
@@ -113,11 +112,12 @@ public class DBManager implements DBWriter<Record> {
 
             stringBuffer.append(sqlDatatypes.DatatypeString + SqlDatatypes.getSize(recordsOfAtr,sqlDatatypes) + ",");
         }
-        table.getForignKeys();
+        stringBuffer.append(" Primary Key (");
+        table.getKeys().stream().forEach(pk -> stringBuffer.append("`" + pk + "` ,")) ;
         stringBuffer.delete(stringBuffer.length()-1,stringBuffer.length());
         stringBuffer.append(")");
 
-
-
+//        executeQuery(stringBuffer.toString());
+//    TODO: check connection
     }
 }
