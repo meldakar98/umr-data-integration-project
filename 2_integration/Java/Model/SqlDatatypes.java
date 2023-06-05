@@ -6,7 +6,7 @@ import java.util.OptionalInt;
 public enum SqlDatatypes {
     VARCHAR(false,"VARCHAR","(.)"),
     INT(true,"INTEGER","([0-9])"),
-    DOUBLE(true,"DOUBLE","^[+-]?\\d+(?:[.,]\\d+)?$");
+    DOUBLE(true,"DOUBLE","[0-9]+([.,][0-9]+)?[a-zA-Z]*");
     public final boolean nummeric;
     public final String DatatypeString;
 
@@ -46,12 +46,10 @@ public enum SqlDatatypes {
 
     private static String getSizeDOUBLE(List<String> records) {
 
-       int afterDecimal = String.valueOf(records.stream().map(s -> s.split("^.*?\\.")).mapToInt(value ->
-           Integer.parseInt(String.valueOf(value[1]))
-       ).max().getAsInt()).length();
+       int afterDecimal = records.stream().map(s -> s.split("^.*?\\.")).mapToInt(value -> value[1].length()).max().getAsInt();
 
-       int infrontDecimal = String.valueOf(records.stream().map(s -> s.split("\\..*")).mapToInt(value ->
-               Integer.parseInt(value[0])).max().getAsInt()).length();
+       int infrontDecimal = records.stream().map(s -> s.split("\\..*")).mapToInt(value ->
+               value[0].length()).max().getAsInt();
 
        return "("+infrontDecimal+","+afterDecimal+")";
     }

@@ -13,7 +13,6 @@ public class Table<T> {
 
     List<String> Keys;
     List<Map<String,Table<? extends Record>>> forignKeys;
-    List<SqlDatatypes> sqlDatatypes;
     List<T> records;
     public Table(String name, List<String> attributes) {
         this.name = name;

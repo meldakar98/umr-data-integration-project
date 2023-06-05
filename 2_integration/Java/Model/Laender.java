@@ -3,7 +3,6 @@ package Model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.DoubleAdder;
 
 import static Model.SqlDatatypes.DOUBLE;
 import static Model.SqlDatatypes.VARCHAR;
@@ -11,7 +10,6 @@ import static Model.SqlDatatypes.VARCHAR;
 public class Laender  extends Record{
     public static List<String> attributes;
     private String string="";
-    private List<SqlDatatypes> sqlDatatypes = new ArrayList<SqlDatatypes>(Arrays.asList(VARCHAR,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE));
     public static void setAttributes(String s)
     {
         attributes= Arrays.stream(s.split(";")).filter(s1 -> s1!="").toList();
@@ -20,6 +18,7 @@ public class Laender  extends Record{
     public Laender(String s)
     {
         super(attributes,s);
+        super.sqlDatatypes = new ArrayList<SqlDatatypes>(Arrays.asList(VARCHAR,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE,DOUBLE));
         name=get(attributes.get(0));
         groesseMan=get(attributes.get(1));
         gewichtMan=get(attributes.get(2));
@@ -38,8 +37,6 @@ public class Laender  extends Record{
     String groesseFrau;
     String BMIManFrau;
 
-    @Override
-    public List<SqlDatatypes> getSqlDatatypes() {
-        return this.sqlDatatypes;
-    }
+
+
 }

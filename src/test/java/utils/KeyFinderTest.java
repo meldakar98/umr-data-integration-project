@@ -20,24 +20,9 @@ class KeyFinderTest {
         atributes.add("name");
         atributes.add("age");
         atributes.add("height");
-        Record record1= new Record(atributes, "M;19;190") {
-            @Override
-            public List<SqlDatatypes> getSqlDatatypes() {
-                return null;
-            }
-        };
-        Record record2= new Record(atributes,"A;19;190"){
-            @Override
-            public List<SqlDatatypes> getSqlDatatypes() {
-                return null;
-            }
-        };
-        Record record3= new Record(atributes,"M;19;190"){
-            @Override
-            public List<SqlDatatypes> getSqlDatatypes() {
-                return null;
-            }
-        };
+        Record record1= new Record(atributes, "M;19;190");
+        Record record2= new Record(atributes,"A;19;190");
+        Record record3= new Record(atributes,"M;19;190");
         List<Record> records=new ArrayList<>();
         records.add(record1);
         records.add(record2);

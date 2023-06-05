@@ -2,10 +2,12 @@ package Model;
 
 import java.util.*;
 
-public abstract class Record {
+public class Record {
 
      public List<String> attributes;
      Map<String,String> values;
+     List<SqlDatatypes> sqlDatatypes;
+     Map<String,SqlDatatypes> typeMaping;
 
     public Record(List<String> attributes,String s)
     {
@@ -49,5 +51,16 @@ public abstract class Record {
         return values.get(s);
     }
 
-    public abstract List<SqlDatatypes> getSqlDatatypes();
+    public SqlDatatypes getSqlDatatypes(String s){
+
+        if (typeMaping == null){
+            typeMaping = new HashMap<>();
+            for(int i = 0; i < attributes.size();i++){
+                typeMaping.put(attributes.get(i),sqlDatatypes.get(i));
+            }
+        }
+        if (attributes.size() != sqlDatatypes.size()) throw new IllegalCallerException("nicht die gleich anzahl an spalten!");
+        return typeMaping.get(s);
+    }
+
 }

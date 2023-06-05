@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class DBManager implements DBWriter<Record> {
@@ -79,7 +80,7 @@ public class DBManager implements DBWriter<Record> {
 //            buf.append("]");
 //
 //        System.out.println(buf.toString());
-        SqlDatatypes.getSize(Arrays.asList("12.44555532","342125.1"),SqlDatatypes.DOUBLE);
+      Object test =  SqlDatatypes.getSize(Arrays.asList("12.44555532","0.82323562985074605"),SqlDatatypes.DOUBLE);
 
     }
 
@@ -88,12 +89,20 @@ public class DBManager implements DBWriter<Record> {
         String attributes = table.getAttributes().stream().collect(Collectors.joining(","));
 
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("CREATE TABLE " + table.getName());
+        stringBuffer.append("CREATE TABLE " + table.getName() + "(");
+        List<Record> records = table.getRecords();
 
-        for(int i = 0; i < table.getAttributes().size();i++){
-//            for (int ii = 0; i<table)
+        for (String atr : table.getAttributes()){
+            stringBuffer.append("`" + atr + "` ");
+            SqlDatatypes sqlDatatypes = records.get(0).getSqlDatatypes(atr);
+            List<String> recordsOfAtr = records.stream().map(rec -> rec.get(atr)).map(s -> Pattern.compile(sqlDatatypes.getRegex()).matcher(s).group(1)).collect(Collectors.toList());
+
+            stringBuffer.append(sqlDatatypes.DatatypeString + SqlDatatypes.getSize(recordsOfAtr,sqlDatatypes) + ",");
         }
-
+        stringBuffer.delete(stringBuffer.length(),stringBuffer.length());
+        stringBuffer.append(")");
+        System.out.println(stringBuffer.toString());
+        List<String> test = table.getRecords().get(1).getValues();
         String values = table.getRecords().stream().map(Record::getCommaSeparatedString).collect(Collectors.joining(","));
 
 
