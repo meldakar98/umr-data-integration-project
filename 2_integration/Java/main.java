@@ -1,10 +1,9 @@
 import Model.Record;
-import utils.DBManager;
-import utils.Dataholder;
-import utils.KeyFinder;
-import utils.Verwaltung;
+import utils.*;
+import utils.database_Info.Database_Settings;
 import utils.database_Info.Table;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +48,7 @@ public class main {
 //        System.out.println("sddsjdsjjd"+Dataholder.getInstance().tables.get(0).findKeys());
 //        System.out.println("sddsjdsjjd"+Dataholder.getInstance().tables.get(1).findKeys());
 //        System.out.println("sddsjdsjjd"+Dataholder.getInstance().tables.get(2).findKeys());
+        System.out.println("12323232323232,".replace(",","."));
         System.out.println(Dataholder.getInstance().tables.get(2).getRecords().size());
         System.out.println(Dataholder.getInstance().tables.get(2).getRecords().size());
 
@@ -60,11 +60,18 @@ public class main {
         System.out.println("sddsjdsjjd"+Dataholder.getInstance().tables.get(2).getKeys());
         System.out.println("sddsjdsjjd"+Dataholder.getInstance().tables.get(1).getKeys());
         System.out.println("sddsjdsjjd"+Dataholder.getInstance().tables.get(0).getKeys());
+        DBManager test = new DBManager();
+        System.out.println("1,65".replace(",","."));
+        test.setup(new Database_Settings("dataintegration","root","1234"));
 
         //writer (init SQL Tables)
         for (Table<? extends Record> t: Dataholder.getInstance().tables){
-            new DBManager().initWrite(t,"dataintegration");
-
+            try {
+                test.initWrite(t);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            test.insertWrite(t);
 
         }
 

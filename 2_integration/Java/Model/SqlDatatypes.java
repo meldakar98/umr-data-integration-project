@@ -1,5 +1,7 @@
 package Model;
 
+import utils.Dataholder;
+
 import java.util.List;
 import java.util.OptionalInt;
 
@@ -33,34 +35,30 @@ public enum SqlDatatypes {
             case VARCHAR -> {
                 return getSizeVARCHAR(records);
             }
-            case INT -> {
-                return getSizeINT(records);
+            case INT  -> {
+                return "";
             }
             case DOUBLE -> {
-                return getSizeDOUBLE(records);
+                return "";
             }
         }
 
         return null;
     }
-
+    @Deprecated(since = "Anscheinend wurden die längendefinitionen von Double werten neudings abgeschaft, werden nicht mehr gebraucht!")
     private static String getSizeDOUBLE(List<String> records) {
 
        int afterDecimal = records.stream().map(s -> s.split("^.*?\\.")).mapToInt(value -> value.length > 1 ? value[1].length() : 0).max().getAsInt();
 
-       int infrontDecimal = records.stream().map(s -> s.split("\\..*")).mapToInt(value ->
+       int frontDecimal = records.stream().map(s -> s.split("\\..*")).mapToInt(value ->
                value[0].length()).max().getAsInt();
 
-       return "("+infrontDecimal+","+afterDecimal+")";
-    }
 
-    private static String getSizeINT(List<String> records) {
 
-//        return String.valueOf(String.valueOf(records.stream().mapToInt(integer -> Integer.parseInt(integer)).max().getAsInt()).length());
-        return "(" + String.valueOf(records.stream().mapToInt(integer -> integer.length()).max().getAsInt()) + ")";
+        return "("+ (frontDecimal < afterDecimal ? afterDecimal : frontDecimal) +","+afterDecimal+")";
     }
 
     private static String getSizeVARCHAR(List<String> records) {
-        return getSizeINT(records);
+        return "(" + String.valueOf(records.stream().mapToInt(str -> str.length()).max().getAsInt()) + ")";
     }
 }

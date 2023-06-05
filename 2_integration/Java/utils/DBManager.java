@@ -6,17 +6,21 @@ import utils.database_Info.Database_Settings;
 import utils.database_Info.Table;
 
 import java.sql.*;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class DBManager implements DBWriter<Record> {
-    private Connection conn;
+import static Model.SqlDatatypes.DOUBLE;
+
+public class DBManager {
+    private static Connection conn;
+
+    private static String schema;
 
     public void setup(Database_Settings custom_db_settings) {
         try {
+            this.schema =  custom_db_settings.schema;
             this.conn =  DriverManager.getConnection("jdbc:mysql://"+custom_db_settings.ip+"/"+custom_db_settings.schema+"?" +
                             "user="+custom_db_settings.username+"&password=" + custom_db_settings.password);
 
@@ -33,7 +37,7 @@ public class DBManager implements DBWriter<Record> {
 
 
 
-    public ResultSet executeQuery(String query){
+    private ResultSet executeQuery(String query){
         try {
             Statement stat = conn.createStatement();
             if(stat.execute(query)) {
@@ -49,47 +53,16 @@ public class DBManager implements DBWriter<Record> {
 
     }
 
-    public static void main(String[] args) throws SQLException {
-//        DBManager dbman = new DBManager();
-//        dbman.setup(new Database_Settings("dataintegration","root","1234"));
-//        ResultSet rs = dbman.executeQuery("SHOW KEYS FROM dataintegration.laender WHERE Key_name = 'PRIMARY'");
-//        ResultSetMetaData metaData = rs.getMetaData();
-//        System.out.println(metaData.getColumnCount());
-////        while (rs.next()){
-////            System.out.println("Name:" +  rs.getString(3));
-////        }
-//
-//            StringBuffer buf = new StringBuffer();
-//            buf.append("[");
-//            try {
-////                ResultSetMetaData metaData = rs.getMetaData();
-//                int nColumns = metaData.getColumnCount();
-//                rs.next();
-//                for (int i = 1; i <= nColumns; ++i) {
-//                    buf.append(metaData.getColumnName(i));
-//                    buf.append(" = ");
-//                    System.out.println(i);
-//                    buf.append(rs.getString(i));
-//                    if (i < nColumns)
-//                        buf.append(" , ");
-//                }
-//            } catch (SQLException e) {
-//                buf.append(e.getMessage());
-//                e.printStackTrace();
-//            }
-//            buf.append("]");
-//
-//        System.out.println(buf.toString());
-      Object test =  SqlDatatypes.getSize(Arrays.asList("12.44555532","0.82323562985074605"),SqlDatatypes.DOUBLE);
 
-    }
+    public void initWrite(Table<? extends Record> table) throws SQLException {
 
-    @Override
-    public void initWrite(Table<? extends Record> table, String databaseToWirteTo) {
+
+        if (conn == null ) return;
+        deleteTable(table);
         String attributes = table.getAttributes().stream().collect(Collectors.joining(","));
 
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("CREATE TABLE " + databaseToWirteTo + "." + table.getName() + "(");
+        stringBuffer.append("CREATE TABLE " + this.schema + "." + table.getName() + "(");
         List<? extends Record> records = table.getRecords();
 
         for (String atr : table.getAttributes()){
@@ -115,9 +88,64 @@ public class DBManager implements DBWriter<Record> {
         stringBuffer.append(" Primary Key (");
         table.getKeys().stream().forEach(pk -> stringBuffer.append("`" + pk + "` ,")) ;
         stringBuffer.delete(stringBuffer.length()-1,stringBuffer.length());
-        stringBuffer.append(")");
+        stringBuffer.append(")) DEFAULT CHARSET = utf8");
+        executeQuery(stringBuffer.toString());
 
-//        executeQuery(stringBuffer.toString());
-//    TODO: check connection
     }
+
+    public void close() {
+        executeQuery("commit");
+        conn = null;
+        schema = null;
+    }
+
+    private void deleteTable(Table<? extends Record> table) {
+        executeQuery("DROP TABLE IF EXISTS `"+ table.getName() +"`");
+    }
+
+    public void insertWrite(Table<? extends Record> table) {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("Insert into " +schema + "."+ table.getName() + " (");
+        table.getAttributes().stream().forEach(str -> stringBuffer.append("`" + str + "`, "));
+        stringBuffer.deleteCharAt(stringBuffer.length() - 2).append(") Values ");
+        for (Record rec : table.getRecords()) {
+            boolean debug = false;
+            if(table.getName().equals("Laender")) debug = true;
+            stringBuffer.append(generateInsertValueString(rec,debug));
+        }
+        stringBuffer.deleteCharAt(stringBuffer.length()-2);
+//        System.out.println(stringBuffer.toString());
+        executeQuery(stringBuffer.toString());
+    }
+
+    private String generateInsertValueString(Record rec,boolean debug) {
+
+
+        StringBuffer returnString = new StringBuffer().append("(");
+        for (int i = 0; i < rec.getValues().size();i++) {
+            List<String> values = rec.getValues();
+            List<String> attributes = rec.attributes;
+            if(rec.getSqlDatatypes(attributes.get(i)).isNummeric()){
+                Pattern pattern = Pattern.compile(rec.getSqlDatatypes(attributes.get(i)).getRegex());
+                Matcher matcher = pattern.matcher(values.get(i));
+                String result;
+                if (matcher.find()) {
+                    result = matcher.group();
+                } else {
+                    throw new RuntimeException("Keine Zahl wurde gefunden!");
+                }
+                if (rec.getSqlDatatypes(attributes.get(i)).equals(DOUBLE)) { //eig könnte man das noch in die SQLDaten Klasse schreiben
+                   result = result.replace(",", ".");
+                }
+                returnString.append(result + ", ");
+            }
+            if(!rec.getSqlDatatypes(attributes.get(i)).isNummeric()){
+                returnString.append("\"" + values.get(i) + "\", ");
+            }
+        }
+        returnString.deleteCharAt(returnString.length()-2).append("), ");
+        return returnString.toString();
+    }
+
+
 }
