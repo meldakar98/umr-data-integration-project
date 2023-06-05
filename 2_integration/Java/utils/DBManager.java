@@ -109,16 +109,14 @@ public class DBManager {
         table.getAttributes().stream().forEach(str -> stringBuffer.append("`" + str + "`, "));
         stringBuffer.deleteCharAt(stringBuffer.length() - 2).append(") Values ");
         for (Record rec : table.getRecords()) {
-            boolean debug = false;
-            if(table.getName().equals("Laender")) debug = true;
-            stringBuffer.append(generateInsertValueString(rec,debug));
+            stringBuffer.append(generateInsertValueString(rec));
         }
         stringBuffer.deleteCharAt(stringBuffer.length()-2);
 //        System.out.println(stringBuffer.toString());
         executeQuery(stringBuffer.toString());
     }
 
-    private String generateInsertValueString(Record rec,boolean debug) {
+    private String generateInsertValueString(Record rec) {
 
 
         StringBuffer returnString = new StringBuffer().append("(");
