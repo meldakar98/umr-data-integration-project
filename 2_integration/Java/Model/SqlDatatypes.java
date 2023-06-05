@@ -1,7 +1,12 @@
 package Model;
 
+import java.util.List;
+import java.util.OptionalInt;
+
 public enum SqlDatatypes {
-    VARCHAR(false,"VARCHAR","(.)"),INT(true,"INTEGER","([0-9])"),DOUBLE(true,"DOUBLE","^[+-]?\\d+(?:[.,]\\d+)?$");
+    VARCHAR(false,"VARCHAR","(.*)"),
+    INT(true,"INTEGER","(\\d+)"),
+    DOUBLE(true,"DOUBLE","(\\d+)([,.]*\\d*)");
     public final boolean nummeric;
     public final String DatatypeString;
 
@@ -21,5 +26,41 @@ public enum SqlDatatypes {
 
     public String getRegex() {
         return regex;
+    }
+
+    public static String getSize(List<String> records, SqlDatatypes type){
+        switch (type){
+            case VARCHAR -> {
+                return getSizeVARCHAR(records);
+            }
+            case INT -> {
+                return getSizeINT(records);
+            }
+            case DOUBLE -> {
+                return getSizeDOUBLE(records);
+            }
+        }
+
+        return null;
+    }
+
+    private static String getSizeDOUBLE(List<String> records) {
+
+       int afterDecimal = records.stream().map(s -> s.split("^.*?\\.")).mapToInt(value -> value.length > 1 ? value[1].length() : 0).max().getAsInt();
+
+       int infrontDecimal = records.stream().map(s -> s.split("\\..*")).mapToInt(value ->
+               value[0].length()).max().getAsInt();
+
+       return "("+infrontDecimal+","+afterDecimal+")";
+    }
+
+    private static String getSizeINT(List<String> records) {
+
+//        return String.valueOf(String.valueOf(records.stream().mapToInt(integer -> Integer.parseInt(integer)).max().getAsInt()).length());
+        return "(" + String.valueOf(records.stream().mapToInt(integer -> integer.length()).max().getAsInt()) + ")";
+    }
+
+    private static String getSizeVARCHAR(List<String> records) {
+        return getSizeINT(records);
     }
 }

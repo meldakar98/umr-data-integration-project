@@ -1,6 +1,7 @@
 package utils.database_Info;
 
 import Model.Record;
+import Model.SqlDatatypes;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -11,7 +12,6 @@ public class Table<T extends Record> {
 
     List<String> keys;
     List<Map<String,Table<? extends Record>>> forignKeys;
-
     List<T> records;
     public Table(String name, List<String> attributes) {
         this.name = name;

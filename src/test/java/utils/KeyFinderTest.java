@@ -1,6 +1,7 @@
 package utils;
 
 import Model.Record;
+import Model.SqlDatatypes;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ class KeyFinderTest {
         atributes.add("name");
         atributes.add("age");
         atributes.add("height");
-        Record record1= new Record(atributes,"M;19;190");
+        Record record1= new Record(atributes, "M;19;190");
         Record record2= new Record(atributes,"A;19;190");
         Record record3= new Record(atributes,"M;19;190");
         List<Record> records=new ArrayList<>();

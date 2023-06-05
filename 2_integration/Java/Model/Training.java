@@ -1,8 +1,9 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.logging.Handler;
+
+import static Model.SqlDatatypes.*;
 
 public class Training extends Record{
 
@@ -11,6 +12,8 @@ public class Training extends Record{
     String kcal_stufe_zwei;
     String kcal_stufe_drei;
     String kcal_stufe_vier;
+
+
 
     public String getAktivitaet() {
         return aktivitaet;
@@ -37,23 +40,10 @@ public class Training extends Record{
     }
 
     String kcal_per_kg;
-    /*
-    public Training(String s)
-    {
-
-        List<String> list= Arrays.stream(s.split(",")).filter(s1 -> s1!="").toList();
-        aktivitaet=list.get(0);
-        kcal_stufe_zwei=Integer.parseInt(list.get(2));
-        kcal_stufe_eins=Integer.parseInt(list.get(1));
-        kcal_stufe_drei=Integer.parseInt(list.get(3));
-        kcal_stufe_vier=Integer.parseInt(list.get(4));;
-        kcal_per_kg=Double.parseDouble(list.get(5));
-    }
-    */
     public Training(String s)
     {
         super(attributes,s);
-
+        super.sqlDatatypes = new ArrayList<SqlDatatypes>(Arrays.asList(VARCHAR,INT,INT,INT,INT,DOUBLE));
         aktivitaet=get(attributes.get(0));
         kcal_stufe_zwei=get(attributes.get(2));
         kcal_stufe_eins=get(attributes.get(1));
@@ -75,6 +65,7 @@ public class Training extends Record{
 
 
     }
+
 
 
 }
