@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -95,15 +96,26 @@ public class DBManager implements DBWriter<Record> {
         for (String atr : table.getAttributes()){
             stringBuffer.append("`" + atr + "` ");
             SqlDatatypes sqlDatatypes = records.get(0).getSqlDatatypes(atr);
-            List<String> recordsOfAtr = records.stream().map(rec -> rec.get(atr)).map(s -> Pattern.compile(sqlDatatypes.getRegex()).matcher(s).group(1)).collect(Collectors.toList());
+
+            List<String> recordsOfAtr = records.stream().map(rec -> rec.get(atr)).map(str -> {
+                Pattern pattern = Pattern.compile(sqlDatatypes.getRegex());
+                Matcher matcher = pattern.matcher(str);
+
+                if (matcher.find()) {
+                    return matcher.group();
+                } else {
+                    throw new RuntimeException("Keine Zahl wurde gefunden!");
+                }
+            }).map(mapedrec -> {
+                if (mapedrec.contains(",") && sqlDatatypes.isNummeric()) return mapedrec.replace(",",".");
+                return mapedrec;
+                }).collect(Collectors.toList());
 
             stringBuffer.append(sqlDatatypes.DatatypeString + SqlDatatypes.getSize(recordsOfAtr,sqlDatatypes) + ",");
         }
-        stringBuffer.delete(stringBuffer.length(),stringBuffer.length());
+        table.getForignKeys();
+        stringBuffer.delete(stringBuffer.length()-1,stringBuffer.length());
         stringBuffer.append(")");
-        System.out.println(stringBuffer.toString());
-        List<String> test = table.getRecords().get(1).getValues();
-        String values = table.getRecords().stream().map(Record::getCommaSeparatedString).collect(Collectors.joining(","));
 
 
     }

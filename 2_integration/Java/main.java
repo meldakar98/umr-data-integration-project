@@ -44,18 +44,24 @@ public class main {
 //       System.out.println(Dataholder.getInstance().tables.get(0).getAttributes());
 //       System.out.println(Dataholder.getInstance().tables.get(0).getRecords());
 //        System.out.println(Dataholder.getInstance().getTraining().get(20).getKcal_stufe_drei());
-//            for (Table t: Dataholder.getInstance().tables){
-//                new DBManager().write(t);
+            for (Table t: Dataholder.getInstance().tables){
+                new DBManager().write(t);
 
 
+            }
+//        String input = "es soll nur 1,56 m gewält werden und nicht die 1,57";
+//        String regex = "(\\d+)(,\\d+)";
+//        List<String> test = Arrays.asList(input).stream().map(str -> {
+//            Pattern pattern = Pattern.compile("(\\d+)(,\\d+)");
+//            Matcher matcher = pattern.matcher(str);
+//
+//            if (matcher.find()) {
+//                return matcher.group();
+//            } else {
+//                return null; // or throw an exception, depending on your requirement
 //            }
-        String input = "es soll nur 1,56 m gewält werden und nicht die 1,56";
-        final Pattern pattern = Pattern.compile("^.*\\d,\\d\\d.*$", Pattern.CASE_INSENSITIVE);
-        // Match regex against input
-        final Matcher matcher = pattern.matcher(input);
-        // Use results...
-        
-        System.out.println(matcher.matches());
+//        }).collect(Collectors.toList());
+//        System.out.println(findSubstring(input,regex));
 
 //        List<String> test = Arrays.asList("1,84 m");
 ////        List<String> result = test.stream().map(s -> s.split()).collect(Collectors.toList());
@@ -68,4 +74,15 @@ public class main {
 //        System.out.println(kf.isKey(list,Dataholder.getInstance().getTraining()));
 
     }
+
+        public static String findSubstring(String input, String regex) {
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(input);
+
+            if (matcher.find()) {
+                return matcher.group();
+            } else {
+                return null; // or throw an exception, depending on your requirement
+            }
+        }
 }
