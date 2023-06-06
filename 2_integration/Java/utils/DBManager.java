@@ -105,27 +105,24 @@ public class DBManager {
 
     public void insertWrite(Table<? extends Record> table) {
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("Insert into " +schema + "."+ table.getName() + " (");
+        stringBuffer.append("Insert into " + schema + "."+ table.getName() + " (");
         table.getAttributes().stream().forEach(str -> stringBuffer.append("`" + str + "`, "));
         stringBuffer.deleteCharAt(stringBuffer.length() - 2).append(") Values ");
         for (Record rec : table.getRecords()) {
             stringBuffer.append(generateInsertValueString(rec));
         }
         stringBuffer.deleteCharAt(stringBuffer.length()-2);
-//        System.out.println(stringBuffer.toString());
         executeQuery(stringBuffer.toString());
     }
 
     private String generateInsertValueString(Record rec) {
-
-
         StringBuffer returnString = new StringBuffer().append("(");
         for (int i = 0; i < rec.getValues().size();i++) {
             List<String> values = rec.getValues();
             List<String> attributes = rec.attributes;
             if(rec.getSqlDatatypes(attributes.get(i)).isNummeric()){
                 Pattern pattern = Pattern.compile(rec.getSqlDatatypes(attributes.get(i)).getRegex());
-                Matcher matcher = pattern.matcher(values.get(i));
+                Matcher matcher = pattern.matcher(values.get(i).replace(" ",""));
                 String result;
                 if (matcher.find()) {
                     result = matcher.group();
