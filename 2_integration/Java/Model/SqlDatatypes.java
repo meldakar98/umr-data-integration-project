@@ -1,33 +1,37 @@
 package Model;
 
-import utils.Dataholder;
-
 import java.util.List;
-import java.util.OptionalInt;
 
 public enum SqlDatatypes {
-    VARCHAR(false,"VARCHAR","(.*)"),
-    INT(true,"INTEGER","(\\d+)"),
-    DOUBLE(true,"DOUBLE","(\\d+)([,.]*\\d*)");
+    VARCHAR(false,"VARCHAR","(.*)",String.class),
+    INT(true,"INTEGER","(\\d+)",Integer.class),
+    DOUBLE(true,"DOUBLE","(\\d+)([,.]*\\d*)",Double.class);
     public final boolean nummeric;
-    public final String DatatypeString;
+    public final String datatypeString;
+
+    public Class javaDatentyp;
 
     public final String regex;
-    private SqlDatatypes(boolean nummeric,String dtString,String regex){
+    private SqlDatatypes(boolean nummeric, String dtString, String regex, Class javaDatentyp){
         this.nummeric=nummeric;
-        this.DatatypeString=dtString;
+        this.datatypeString =dtString;
         this.regex = regex;
+        this.javaDatentyp = javaDatentyp;
     }
     public boolean isNummeric() {
         return nummeric;
     }
 
     public String getDatatypeString() {
-        return DatatypeString;
+        return datatypeString;
     }
 
     public String getRegex() {
         return regex;
+    }
+
+    public Class getJavaDatentyp() {
+        return javaDatentyp;
     }
 
     public static String getSize(List<String> records, SqlDatatypes type){
@@ -35,10 +39,7 @@ public enum SqlDatatypes {
             case VARCHAR -> {
                 return getSizeVARCHAR(records);
             }
-            case INT  -> {
-                return "";
-            }
-            case DOUBLE -> {
+            case INT, DOUBLE -> {
                 return "";
             }
         }
