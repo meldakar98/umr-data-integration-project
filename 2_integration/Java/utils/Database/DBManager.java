@@ -1,9 +1,9 @@
-package utils;
+package utils.Database;
 
 import Model.Record;
 import Model.SqlDatatypes;
-import utils.database_Info.Database_Settings;
-import utils.database_Info.Table;
+import utils.Database.database_Info.Database_Settings;
+import utils.Database.database_Info.Table;
 
 import java.sql.*;
 import java.util.List;
@@ -121,18 +121,7 @@ public class DBManager {
             List<String> values = rec.getValues();
             List<String> attributes = rec.attributes;
             if(rec.getSqlDatatypes(attributes.get(i)).isNummeric()){
-//                Pattern pattern = Pattern.compile(rec.getSqlDatatypes(attributes.get(i)).getRegex());
-//                Matcher matcher = pattern.matcher(values.get(i).replace(" ",""));
-//                String result;
-//                if (matcher.find()) {
-//                    result = matcher.group();
-//                } else {
-//                    throw new RuntimeException("Keine Zahl wurde gefunden!");
-//                }
-//                if (rec.getSqlDatatypes(attributes.get(i)).equals(DOUBLE)) { //eig könnte man das noch in die SQLDaten Klasse schreiben
-//                   result = result.replace(",", ".");
-//                }
-//                returnString.append(result + ", ");
+
                 returnString.append(cleanString(values.get(i).replace(" ", ""), rec.getSqlDatatypes(attributes.get(i)))).append(", ");
             }
 

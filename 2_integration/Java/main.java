@@ -1,7 +1,10 @@
 import Model.Record;
-import utils.*;
-import utils.database_Info.Database_Settings;
-import utils.database_Info.Table;
+import utils.Database.DBManager;
+import utils.Database.database_Info.Database_Settings;
+import utils.Database.database_Info.Table;
+import utils.JavaDataManager.Dataholder;
+import utils.JavaDataManager.KeyFinder;
+import utils.JavaDataManager.Verwaltung;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package utils;
+package utils.JavaDataManager;
 
 public class JaroWinkler {
     static double jaro_distance(String s1, String s2)

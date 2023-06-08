@@ -1,4 +1,4 @@
-package utils;
+package utils.JavaDataManager;
 
 import Model.Record;
 import Model.Training;

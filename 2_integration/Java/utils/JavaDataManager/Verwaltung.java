@@ -1,15 +1,14 @@
-package utils;
+package utils.JavaDataManager;
 
 import Model.Laender;
 import Model.McDonalds;
 import Model.Record;
 import Model.Training;
-import utils.database_Info.Table;
+import utils.Database.database_Info.Table;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

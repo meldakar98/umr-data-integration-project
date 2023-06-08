@@ -12,7 +12,7 @@ public enum SqlDatatypes {
     public Class javaDatentyp;
 
     public final String regex;
-    private SqlDatatypes(boolean nummeric, String dtString, String regex, Class javaDatentyp){
+    private SqlDatatypes(boolean nummeric, String dtString, String regex, Class javaDatentyp){ //javaDatentyp war angedacht 
         this.nummeric=nummeric;
         this.datatypeString =dtString;
         this.regex = regex;

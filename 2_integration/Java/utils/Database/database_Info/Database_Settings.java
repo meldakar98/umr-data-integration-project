@@ -1,4 +1,4 @@
-package utils.database_Info;
+package utils.Database.database_Info;
 
 public class Database_Settings {
     public final String ip = "@localhost"; //Standart

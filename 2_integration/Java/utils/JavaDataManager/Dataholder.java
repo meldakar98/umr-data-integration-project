@@ -1,10 +1,10 @@
-package utils;
+package utils.JavaDataManager;
 
 import Model.Laender;
 import Model.McDonalds;
 import Model.Record;
 import Model.Training;
-import utils.database_Info.Table;
+import utils.Database.database_Info.Table;
 
 import java.util.ArrayList;
 import java.util.List;

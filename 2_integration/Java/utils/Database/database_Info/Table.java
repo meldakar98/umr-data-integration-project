@@ -1,10 +1,8 @@
-package utils.database_Info;
+package utils.Database.database_Info;
 
 import Model.Record;
-import Model.SqlDatatypes;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Table<T extends Record> {
     String name;
