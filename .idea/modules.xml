@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/umr-data-integration-project.iml" filepath="$PROJECT_DIR$/.idea/umr-data-integration-project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/umr-data-integration-project.iml" filepath="$PROJECT_DIR$/umr-data-integration-project.iml" />
     </modules>
   </component>
 </project>
