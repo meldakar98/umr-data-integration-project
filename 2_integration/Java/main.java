@@ -2,9 +2,7 @@ import Model.Record;
 import utils.Database.DBManager;
 import utils.Database.database_Info.Database_Settings;
 import utils.Database.database_Info.Table;
-import utils.JavaDataManager.Dataholder;
-import utils.JavaDataManager.KeyFinder;
-import utils.JavaDataManager.Verwaltung;
+import utils.JavaDataManager.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -67,6 +65,7 @@ public class main {
         System.out.println("1,65".replace(",","."));
         test.setup(new Database_Settings("dataintegration","root","1234"));
 
+        List<AttributeMatchingObject> testMatching = AttributeMatchingVarchar.getAttributeMatchingVarcharOnTables(Dataholder.getInstance().tables);
         //writer (init SQL Tables)
         for (Table<? extends Record> t: Dataholder.getInstance().tables){
             try {

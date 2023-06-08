@@ -11,10 +11,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class AttributeMatchingVarchar {
-    public static List<AttributeMatchingObject> getAttributeMatchingVarcharOnTables(List<Table<Record>> tablesToCompare){
+    public static List<AttributeMatchingObject> getAttributeMatchingVarcharOnTables(List<Table<? extends Record>> tablesToCompare){
         HashMap<Table<? extends Record>,List<String>> tableAttr = new HashMap<>();
         List<AttributeMatchingObject> result = new ArrayList<>();
-        for(Table<Record> t : tablesToCompare){
+        for(Table<? extends Record> t : tablesToCompare){
             List<String> tAttributes = t.getAttributes();
             List<SqlDatatypes> tSqlDatatypes = new ArrayList<>();
             List<String> tAttrResult = new ArrayList<>();
@@ -46,7 +46,7 @@ public class AttributeMatchingVarchar {
 
     }
     public static List<AttributeMatchingObject> getComparableStringsFrom(Table<? extends Record> table, String attributeFromTable, String compareBasis){
-        return table.getRecords().stream().map(r -> r.get(attributeFromTable)).sorted().filter(s -> s.contains(compareBasis.substring(0,compareBasis.length()/2))).map(comp -> new AttributeMatchingObject(JaroWinkler.jaro_Winkler(compareBasis,comp),compareBasis,comp)).collect(Collectors.toList());
+        return table.getRecords().stream().map(r -> r.get(attributeFromTable)).sorted().filter(s -> s.contains(compareBasis.substring(0,compareBasis.length()/2))).distinct().map(comp -> new AttributeMatchingObject(JaroWinkler.jaro_Winkler(compareBasis,comp),compareBasis,comp)).collect(Collectors.toList());
 
     }
 
