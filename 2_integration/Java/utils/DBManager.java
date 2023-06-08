@@ -11,8 +11,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static Model.SqlDatatypes.DOUBLE;
-
 public class DBManager {
     private static Connection conn;
 
@@ -37,18 +35,17 @@ public class DBManager {
 
 
 
-    private ResultSet executeQuery(String query){
+    private void executeQuery(String query){
         try {
             Statement stat = conn.createStatement();
-            if(stat.execute(query)) {
-                return stat.getResultSet();
-            }
-            return null;
+//            if(stat.execute(query)) {
+//                stat.getResultSet();
+//            }
+            stat.execute(query);
         } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
             System.out.println("SQLState: " + e.getSQLState());
             System.out.println("VendorError: " + e.getErrorCode());
-            return null;
         }
 
     }
@@ -56,41 +53,42 @@ public class DBManager {
 
     public void initWrite(Table<? extends Record> table) throws SQLException {
 
-
         if (conn == null ) return;
         deleteTable(table);
-        String attributes = table.getAttributes().stream().collect(Collectors.joining(","));
 
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("CREATE TABLE " + this.schema + "." + table.getName() + "(");
+        stringBuffer.append("CREATE TABLE ").append(schema).append(".").append(table.getName()).append("(");
         List<? extends Record> records = table.getRecords();
 
         for (String atr : table.getAttributes()){
-            stringBuffer.append("`" + atr + "` ");
+            stringBuffer.append("`").append(atr).append("` ");
             SqlDatatypes sqlDatatypes = records.get(0).getSqlDatatypes(atr);
 
-            List<String> recordsOfAtr = records.stream().map(rec -> rec.get(atr)).map(str -> {
-                Pattern pattern = Pattern.compile(sqlDatatypes.getRegex());
-                Matcher matcher = pattern.matcher(str);
+            List<String> recordsOfAtr = records.stream().map(rec -> rec.get(atr)).map(str -> cleanString(str,sqlDatatypes)).collect(Collectors.toList());
 
-                if (matcher.find()) {
-                    return matcher.group();
-                } else {
-                    throw new RuntimeException("Keine Zahl wurde gefunden!");
-                }
-            }).map(mapedrec -> {
-                if (mapedrec.contains(",") && sqlDatatypes.isNummeric()) return mapedrec.replace(",",".");
-                return mapedrec;
-                }).collect(Collectors.toList());
-
-            stringBuffer.append(sqlDatatypes.DatatypeString + SqlDatatypes.getSize(recordsOfAtr,sqlDatatypes) + ",");
+            stringBuffer.append(sqlDatatypes.datatypeString).append(SqlDatatypes.getSize(recordsOfAtr, sqlDatatypes)).append(",");
         }
         stringBuffer.append(" Primary Key (");
-        table.getKeys().stream().forEach(pk -> stringBuffer.append("`" + pk + "` ,")) ;
+        table.getKeys().forEach(pk -> stringBuffer.append("`").append(pk).append("` ,")) ;
         stringBuffer.delete(stringBuffer.length()-1,stringBuffer.length());
         stringBuffer.append(")) DEFAULT CHARSET = utf8");
         executeQuery(stringBuffer.toString());
 
+    }
+
+    private String cleanString(String str, SqlDatatypes sqlDatatypes) {
+        String returnString;
+        Pattern pattern = Pattern.compile(sqlDatatypes.getRegex());
+        Matcher matcher = pattern.matcher(str);
+
+        if (matcher.find()) {
+            returnString = matcher.group();
+        } else {
+            throw new RuntimeException("Keine Zahl wurde gefunden!");
+        }
+
+        if (returnString.contains(",") && sqlDatatypes.isNummeric()) return returnString.replace(",",".");
+        return returnString;
     }
 
     public void close() {
@@ -106,14 +104,16 @@ public class DBManager {
     public void insertWrite(Table<? extends Record> table) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("Insert into " + schema + "."+ table.getName() + " (");
-        table.getAttributes().stream().forEach(str -> stringBuffer.append("`" + str + "`, "));
+        table.getAttributes().forEach(str -> stringBuffer.append("`" + str + "`, "));
         stringBuffer.deleteCharAt(stringBuffer.length() - 2).append(") Values ");
         for (Record rec : table.getRecords()) {
             stringBuffer.append(generateInsertValueString(rec));
         }
         stringBuffer.deleteCharAt(stringBuffer.length()-2);
+        System.out.println(stringBuffer.toString());
         executeQuery(stringBuffer.toString());
     }
+
 
     private String generateInsertValueString(Record rec) {
         StringBuffer returnString = new StringBuffer().append("(");
@@ -121,21 +121,23 @@ public class DBManager {
             List<String> values = rec.getValues();
             List<String> attributes = rec.attributes;
             if(rec.getSqlDatatypes(attributes.get(i)).isNummeric()){
-                Pattern pattern = Pattern.compile(rec.getSqlDatatypes(attributes.get(i)).getRegex());
-                Matcher matcher = pattern.matcher(values.get(i).replace(" ",""));
-                String result;
-                if (matcher.find()) {
-                    result = matcher.group();
-                } else {
-                    throw new RuntimeException("Keine Zahl wurde gefunden!");
-                }
-                if (rec.getSqlDatatypes(attributes.get(i)).equals(DOUBLE)) { //eig könnte man das noch in die SQLDaten Klasse schreiben
-                   result = result.replace(",", ".");
-                }
-                returnString.append(result + ", ");
+//                Pattern pattern = Pattern.compile(rec.getSqlDatatypes(attributes.get(i)).getRegex());
+//                Matcher matcher = pattern.matcher(values.get(i).replace(" ",""));
+//                String result;
+//                if (matcher.find()) {
+//                    result = matcher.group();
+//                } else {
+//                    throw new RuntimeException("Keine Zahl wurde gefunden!");
+//                }
+//                if (rec.getSqlDatatypes(attributes.get(i)).equals(DOUBLE)) { //eig könnte man das noch in die SQLDaten Klasse schreiben
+//                   result = result.replace(",", ".");
+//                }
+//                returnString.append(result + ", ");
+                returnString.append(cleanString(values.get(i).replace(" ", ""), rec.getSqlDatatypes(attributes.get(i)))).append(", ");
             }
+
             if(!rec.getSqlDatatypes(attributes.get(i)).isNummeric()){
-                returnString.append("\"" + values.get(i) + "\", ");
+                returnString.append("\"").append(values.get(i)).append("\", ");
             }
         }
         returnString.deleteCharAt(returnString.length()-2).append("), ");
