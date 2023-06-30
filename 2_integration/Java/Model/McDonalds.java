@@ -13,7 +13,7 @@ public class McDonalds extends Record{
     public McDonalds(String s) {
 
         super(attributes,s);
-        super.sqlDatatypes = new ArrayList<SqlDatatypes>(Arrays.asList(VARCHAR,VARCHAR,INT,INT,INT,INT,INT));
+        super.sqlDatatypes = new ArrayList<SqlDatatypes>(Arrays.asList(VARCHAR,VARCHAR,INT,INT,INT,INT,INT,INT));
 
         menu=get(attributes.get(0));
         menge=get(attributes.get(1));
@@ -22,6 +22,7 @@ public class McDonalds extends Record{
         energie=get(attributes.get(4));
         fett=get(attributes.get(5));
         kh=get(attributes.get(6));
+        Einheit=get(attributes.get(7));
     }
 
     public static void setAttributes(String s)
@@ -36,5 +37,6 @@ public class McDonalds extends Record{
     String energie;
     String fett;
     String kh;
+    String Einheit;
 
 }

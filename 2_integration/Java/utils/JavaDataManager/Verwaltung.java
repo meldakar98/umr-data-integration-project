@@ -101,7 +101,7 @@ public class Verwaltung {
     }
     private void parseMcdonaldsCsvFile() {
         String current = "";
-        String fileName="./0_datasets/McDonalds_Nahrwertetabelle_fur_alle_Gerichte.csv";
+        String fileName="./0_datasets/MekkesTest.csv";
         Dataholder dataholder= Dataholder.getInstance();
         Table<McDonalds> table;
 

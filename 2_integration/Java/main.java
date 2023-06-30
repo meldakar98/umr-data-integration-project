@@ -65,7 +65,7 @@ public class main {
         System.out.println("1,65".replace(",","."));
         test.setup(new Database_Settings("dataintegration","root","1234"));
 
-        List<AttributeMatchingObject> testMatching = AttributeMatchingVarchar.getAttributeMatchingVarcharOnTables(Dataholder.getInstance().tables);
+//        List<AttributeMatchingObject> testMatching = AttributeMatchingVarchar.getAttributeMatchingVarcharOnTables(Dataholder.getInstance().tables);
         //writer (init SQL Tables)
         for (Table<? extends Record> t: Dataholder.getInstance().tables){
             try {

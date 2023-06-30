@@ -66,7 +66,7 @@ public class DBManager {
 
             List<String> recordsOfAtr = records.stream().map(rec -> rec.get(atr)).map(str -> cleanString(str,sqlDatatypes)).collect(Collectors.toList());
 
-            stringBuffer.append(sqlDatatypes.datatypeString).append(SqlDatatypes.getSize(recordsOfAtr, sqlDatatypes)).append(",");
+            stringBuffer.append(sqlDatatypes.getDatatypeString()).append(SqlDatatypes.getSize(recordsOfAtr, sqlDatatypes)).append(",");
         }
         stringBuffer.append(" Primary Key (");
         table.getKeys().forEach(pk -> stringBuffer.append("`").append(pk).append("` ,")) ;
