@@ -1,4 +1,4 @@
-Create View Kombinationen_Menues as (
+Create View menue_kombos as (
 select * from (
 Select  Bezeichnung as Haupspeise_Bezeichnung,
         Menge as Haupspeise_Menge,
