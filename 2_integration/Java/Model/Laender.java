@@ -2,6 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import static Model.SqlDatatypes.DOUBLE;
@@ -10,6 +11,7 @@ import static Model.SqlDatatypes.VARCHAR;
 public class Laender  extends Record{
     public static List<String> attributes;
     private String string="";
+
     public static void setAttributes(String s)
     {
         attributes= Arrays.stream(s.split(";")).filter(s1 -> s1!="").toList();
@@ -36,7 +38,4 @@ public class Laender  extends Record{
     String gewichtFrau;
     String groesseFrau;
     String BMIManFrau;
-
-
-
 }

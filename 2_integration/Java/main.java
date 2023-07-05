@@ -74,8 +74,7 @@ public class main {
                 throw new RuntimeException(e);
             }
             test.insertWrite(t);
-
         }
-
+        test.close();
     }
 }

@@ -6,7 +6,7 @@ public class Record {
      public List<String> attributes;
     protected ArrayList<SqlDatatypes> sqlDatatypes;
     Map<String,String> values;
-    private HashMap<String, SqlDatatypes> typeMaping;
+    public static HashMap<String, SqlDatatypes> typeMaping;
 
     @Override
      public boolean equals(Object o)
@@ -77,5 +77,9 @@ public class Record {
         }
         if (attributes.size() != sqlDatatypes.size()) throw new IllegalCallerException("nicht die gleich anzahl an spalten!");
         return typeMaping.get(s);
+    }
+
+    public void resetSqlDatatypes(){
+        typeMaping = null;
     }
 }
